@@ -50,8 +50,8 @@ export const Route = createRootRoute({
       { name: "description", content: "The Ember's Forge is a personal website showcasing expertise in AI automation, community management, sales, and self-improvement." },
       { property: "og:description", content: "The Ember's Forge is a personal website showcasing expertise in AI automation, community management, sales, and self-improvement." },
       { name: "twitter:description", content: "The Ember's Forge is a personal website showcasing expertise in AI automation, community management, sales, and self-improvement." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f3a11245-cffa-4f81-84c1-58528ff3f31b/id-preview-3a05bcb8--06347ed2-72fe-4153-8618-7dff254792bf.lovable.app-1776519529267.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f3a11245-cffa-4f81-84c1-58528ff3f31b/id-preview-3a05bcb8--06347ed2-72fe-4153-8618-7dff254792bf.lovable.app-1776519529267.png" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3342bf28-a2fd-47a3-90b6-9a75d4577680/id-preview-62ce421f--06347ed2-72fe-4153-8618-7dff254792bf.lovable.app-1776519918874.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3342bf28-a2fd-47a3-90b6-9a75d4577680/id-preview-62ce421f--06347ed2-72fe-4153-8618-7dff254792bf.lovable.app-1776519918874.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

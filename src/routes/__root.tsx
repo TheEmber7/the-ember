@@ -3,7 +3,7 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import appCss from "../styles.css?url";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { LanguageProvider } from "@/i18n/LanguageProvider";
+import { LanguageProvider, useI18n } from "@/i18n/LanguageProvider";
 
 function NotFoundComponent() {
   return (

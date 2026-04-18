@@ -46,6 +46,12 @@ export const Route = createRootRoute({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Horváth Zsombor — The Ember" },
+      { name: "description", content: "The Ember's Forge is a personal website showcasing expertise in AI automation, community management, sales, and self-improvement." },
+      { property: "og:description", content: "The Ember's Forge is a personal website showcasing expertise in AI automation, community management, sales, and self-improvement." },
+      { name: "twitter:description", content: "The Ember's Forge is a personal website showcasing expertise in AI automation, community management, sales, and self-improvement." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f3a11245-cffa-4f81-84c1-58528ff3f31b/id-preview-3a05bcb8--06347ed2-72fe-4153-8618-7dff254792bf.lovable.app-1776519529267.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f3a11245-cffa-4f81-84c1-58528ff3f31b/id-preview-3a05bcb8--06347ed2-72fe-4153-8618-7dff254792bf.lovable.app-1776519529267.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

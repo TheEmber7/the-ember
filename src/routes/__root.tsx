@@ -7,19 +7,26 @@ import { LanguageProvider } from "@/i18n/LanguageProvider";
 
 function NotFoundComponent() {
   return (
+    <LanguageProvider>
+      <NotFoundInner />
+    </LanguageProvider>
+  );
+}
+
+function NotFoundInner() {
+  const { t } = useI18n();
+  return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="font-display text-7xl font-bold text-ember ember-glow-text">404</h1>
-        <h2 className="mt-4 font-display text-2xl text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          This path doesn't burn here. Let's get you back.
-        </p>
+        <h2 className="mt-4 font-display text-2xl text-foreground">{t.notFound.title}</h2>
+        <p className="mt-2 text-sm text-muted-foreground">{t.notFound.body}</p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all hover:brightness-110 ember-ring"
           >
-            Go home
+            {t.notFound.cta}
           </Link>
         </div>
       </div>

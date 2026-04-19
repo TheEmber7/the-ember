@@ -2,7 +2,7 @@ export type Lang = "en" | "hu";
 
 export const translations = {
   en: {
-    nav: { home: "Home", about: "About", services: "Services", contact: "Contact" },
+    nav: { home: "Home", about: "About", work: "My Work", services: "Services", contact: "Contact" },
     footer: {
       rights: "All rights reserved.",
       tagline: "Built with intent. Lit with purpose.",
@@ -50,6 +50,22 @@ export const translations = {
           role: "Self-Improvement Mentor",
           name: "Lucky Luc",
           body: "Mental frameworks for resilience, focus, and showing up as the man the work requires.",
+        },
+      ],
+    },
+    work: {
+      eyebrow: "My Work",
+      title: "Public",
+      titleAccent: "work",
+      intro: "A growing collection of the rooms I run, the systems I build, and the communities I help lead. Proof over promises.",
+      visit: "Visit",
+      items: [
+        {
+          title: "Head Manager & Admin of M.V.K",
+          subtitle: "Community Management",
+          description:
+            "M.V.K (Magyar Vállalkozók Közössége) is a country-exclusive networking community for Hungary. Built for like-minded individuals — young or adult — who want to run their own business and step into the world of entrepreneurship. Think of it as the beginner-friendly answer to the famous Hungarian \"FIVOSZ\" entrepreneurship network, while still serving experienced founders.",
+          url: "https://magyar-valalkozok.vercel.app/",
         },
       ],
     },
@@ -136,7 +152,7 @@ export const translations = {
     },
   },
   hu: {
-    nav: { home: "Főoldal", about: "Rólam", services: "Szolgáltatások", contact: "Kapcsolat" },
+    nav: { home: "Főoldal", about: "Rólam", work: "Munkáim", services: "Szolgáltatások", contact: "Kapcsolat" },
     footer: {
       rights: "Minden jog fenntartva.",
       tagline: "Szándékkal építve. Céllal lángra lobbantva.",
@@ -184,6 +200,22 @@ export const translations = {
           role: "Önfejlesztési Mentor",
           name: "Lucky Luc",
           body: "Mentális keretrendszerek a kitartáshoz, fókuszhoz, és ahhoz, hogy azzá válj, akit a munka megkövetel.",
+        },
+      ],
+    },
+    work: {
+      eyebrow: "Munkáim",
+      title: "Nyilvános",
+      titleAccent: "munkáim",
+      intro: "Egyre bővülő gyűjtemény azokról a termekről, amiket vezetek, a rendszerekről, amiket építek, és a közösségekről, amelyeket segítek irányítani. Bizonyíték ígéretek helyett.",
+      visit: "Megnyitás",
+      items: [
+        {
+          title: "M.V.K Vezető Menedzser és Admin",
+          subtitle: "Közösségmenedzsment",
+          description:
+            "Az M.V.K (Magyar Vállalkozók Közössége) egy Magyarországra kizárólagos networking közösség. Hasonlóan gondolkodó embereknek készült — fiataloknak és felnőtteknek egyaránt —, akik saját vállalkozást szeretnének vezetni, és belépnének a vállalkozói világba. Tekintsd a híres magyar „FIVOSZ\" vállalkozói hálózat kezdőbarát válaszának, miközben tapasztalt alapítóknak is értéket nyújt.",
+          url: "https://magyar-valalkozok.vercel.app/",
         },
       ],
     },

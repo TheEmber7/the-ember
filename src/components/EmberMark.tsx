@@ -1,4 +1,4 @@
-import { Flame } from "lucide-react";
+import { Crown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function EmberMark({
@@ -11,7 +11,7 @@ export function EmberMark({
   return (
     <span className={cn("inline-flex items-center gap-2", className)}>
       <span className="relative inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 ring-1 ring-primary/30">
-        <Flame
+        <Crown
           className="h-4 w-4 text-primary"
           strokeWidth={2.2}
           aria-hidden

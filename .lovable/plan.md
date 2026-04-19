@@ -1,50 +1,44 @@
 
-## Personal Site for Horváth Zsombor — "The Ember"
+## Featurebase Integration Plan
 
-### Brand & Style
-- **Palette**: Deep dark blue background (`oklch(~0.18 0.05 260)`), golden hue accent (`oklch(~0.78 0.14 80)`), white text/foreground.
-- **Typography**: Clean sans-serif (Inter) for body, slightly heavier display weight for headings — minimalistic.
-- **Motion**: Custom `zoom-in-fade-in` keyframe applied on scroll/route entry. Subtle ember-glow ambient backgrounds (radial golden gradients, soft animated pulse) — decorative only, no heavy graphics.
-- **Tone**: Minimalistic, confident, premium.
+### What we're adding
+Three Featurebase widgets + a Help dropdown button in the header (visible on desktop AND mobile top bar, placed right before the language switcher).
 
-### Site Structure (multi-page, separate routes for SEO)
-1. **`/` — Home**
-   - Hero: "Horváth Zsombor" with "The Ember" as a glowing tagline.
-   - One-liner positioning: AI Automation • Community Management • Sales & Mental Frameworks.
-   - Two CTAs: "What I Offer" → `/services`, "Get in Touch" → `/contact`.
-   - Animated ember/glow backdrop.
+### 1. SDK Loader (`src/components/FeaturebaseLoader.tsx`)
+A single client-only component mounted once in `__root.tsx`. It:
+- Injects the Featurebase SDK `<script>` once (id `featurebase-sdk`).
+- Boots **Live Support Messenger** with `appId: "69e384b070da38b54b33a688"`, `theme: "dark"`, `language` synced from `useI18n()` (`en` / `hu`), and `hideDefaultLauncher: true` so the floating bubble doesn't clash with the minimalist design.
+- Initializes **Changelog widget** with `organization: "zsombortheember"`, `theme: "dark"`, dropdown + popup enabled, `autoOpenForNewUpdates: true`, locale synced to current language. ChangelogCard disabled (we trigger it from the dropdown instead).
+- Initializes **Feedback widget** with `organization: "zsombortheember"`, `theme: "dark"`, `placement` omitted (no floating button — triggered from dropdown).
+- Re-runs language sync when `lang` changes via `Featurebase("update", { ... })` / `Featurebase("identify", ...)` patterns; if not supported we re-init.
 
-2. **`/about` — About**
-   - Personal story and philosophy.
-   - Mentor section highlighting **Prof. Arno Wingen** (Business) and **Lucky Luc** (Self-Improvement).
-   - Pillars: Discipline · Social skill · Business craft.
+### 2. Help Dropdown (`src/components/HelpMenu.tsx`)
+- Trigger: circled question-mark button (`HelpCircle` from lucide-react) styled to match the existing language pill (small rounded border, hover golden glow).
+- Uses existing `@/components/ui/dropdown-menu` (already in project) for accessible keyboard/focus handling and consistent styling.
+- Two items, both translated via `t.help.*`:
+  - **Give Feedback** → triggers `Featurebase("manually_open_feedback_widget")`.
+  - **What's New** → triggers `Featurebase("manually_open_changelog_popup")`.
+- Falls back gracefully if SDK not yet loaded (queues call, since the SDK shim already buffers via `Featurebase.q`).
 
-3. **`/services` — What I Offer**
-   - Three service cards with golden iconography:
-     - **AI Automation** — websites, chatbots, prompt engineering.
-     - **Community Management** — General Manager + creative work for online communities.
-     - **Sales & Mental Frameworks Coaching** — social skills, business resilience, self-improvement.
-   - Each card: short description + "Work with me" link to `/contact`.
+### 3. Header changes (`src/components/SiteHeader.tsx`)
+- Insert `<HelpMenu />` immediately before `<LanguageSwitcher />` in the right-side cluster.
+- Make it visible on mobile too (no `hidden sm:inline-flex`), per request.
+- Mobile menu panel: also include it next to the language switcher at the bottom for parity.
 
-4. **`/contact` — Contact**
-   - Contact form (name, email, topic, message) with zod validation.
-   - Form submissions are stored and you receive an email notification at your address (Lovable Cloud + built-in email).
-   - Confirmation email automatically sent to the visitor.
-   - Placeholder section ready for your **Featurebase widget/embed** (you'll paste the snippet when ready).
+### 4. Translations (`src/i18n/translations.ts`)
+Add a `help` namespace:
+- EN: `{ label: "Help", feedback: "Give Feedback", changelog: "What's New" }`
+- HU: `{ label: "Súgó", feedback: "Visszajelzés küldése", changelog: "Újdonságok" }`
 
-### Shared Layout
-- Sticky minimalist header with logo mark ("The Ember" wordmark + small flame glyph) and nav links (Home, About, Services, Contact) with golden underline-on-active animation.
-- Footer with copyright and a subtle "The Ember" mark.
+### 5. Root mount (`src/routes/__root.tsx`)
+Add `<FeaturebaseLoader />` inside the providers tree (after `LanguageProvider` so it can read current language).
 
-### Animations
-- Custom Tailwind keyframe `zoom-fade-in` (scale 0.95 → 1, opacity 0 → 1, 600ms ease-out).
-- Triggered on route mount and on-scroll for sections via `IntersectionObserver`.
-- Respect `prefers-reduced-motion`.
+### Technical notes
+- All Featurebase calls are wrapped in `typeof window !== "undefined"` guards so SSR doesn't break.
+- Theme hardcoded to `"dark"` to match the deep-blue palette.
+- No new dependencies required — Featurebase SDK is loaded via injected `<script>` tag, dropdown uses existing Radix-based `dropdown-menu` UI primitive.
+- No secrets needed — appId and org slug are public client-side identifiers.
 
-### Tech
-- TanStack Start routes for each page with proper per-page SEO metadata (title, description, og tags).
-- Lovable Cloud enabled for the contact form backend + email delivery.
-- Featurebase embed left as a clearly marked slot — easy to drop in later.
-
-### After this first build we can iterate on
-- Real portrait/photography, case studies, testimonials, blog, booking link, custom domain.
+### Files touched
+- **Create**: `src/components/FeaturebaseLoader.tsx`, `src/components/HelpMenu.tsx`
+- **Edit**: `src/components/SiteHeader.tsx`, `src/i18n/translations.ts`, `src/routes/__root.tsx`

@@ -36,22 +36,14 @@ export function FeaturebaseLoader() {
     ensureSdk();
     if (typeof window === "undefined" || !window.Featurebase) return;
 
+    // Live Support Messenger — show the default floating launcher
     window.Featurebase("boot", {
       appId: FB_APP_ID,
       theme: "dark",
       language: lang,
-      hideDefaultLauncher: true,
     });
 
-    window.Featurebase("init_changelog_widget", {
-      organization: FB_ORG,
-      changelogCard: { enabled: false },
-      dropdown: { enabled: false, placement: "right" },
-      popup: { enabled: true, autoOpenForNewUpdates: true },
-      theme: "dark",
-      locale: lang,
-    });
-
+    // Feedback widget — initialize without floating button; opened manually from HelpMenu
     window.Featurebase("initialize_feedback_widget", {
       organization: FB_ORG,
       theme: "dark",

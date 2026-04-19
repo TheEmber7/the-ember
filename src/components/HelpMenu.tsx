@@ -44,7 +44,7 @@ export function HelpMenu({ className }: { className?: string }) {
           <span>{t.help.feedback}</span>
         </DropdownMenuItem>
         <DropdownMenuItem
-          onSelect={() => callFeaturebase("manually_open_messenger")}
+          onSelect={() => callFeaturebase("manually_open_chat_messenger")}
           className="cursor-pointer gap-2"
         >
           <MessageCircle className="h-4 w-4 text-ember" />

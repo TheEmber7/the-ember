@@ -14,6 +14,7 @@ export function SiteHeader() {
   const NAV = [
     { to: "/", label: t.nav.home },
     { to: "/about", label: t.nav.about },
+    { to: "/work", label: t.nav.work },
     { to: "/services", label: t.nav.services },
     { to: "/contact", label: t.nav.contact },
   ] as const;

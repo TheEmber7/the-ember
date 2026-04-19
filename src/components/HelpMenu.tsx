@@ -1,4 +1,4 @@
-import { HelpCircle, MessageSquarePlus } from "lucide-react";
+import { HelpCircle, MessageCircle, MessageSquarePlus } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,

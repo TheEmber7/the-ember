@@ -3,6 +3,7 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import appCss from "../styles.css?url";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { FeaturebaseLoader } from "@/components/FeaturebaseLoader";
 import { LanguageProvider, useI18n } from "@/i18n/LanguageProvider";
 
 function NotFoundComponent() {
@@ -93,6 +94,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <LanguageProvider>
+      <FeaturebaseLoader />
       <div className="flex min-h-screen flex-col bg-background text-foreground">
         <SiteHeader />
         <main className="flex-1">

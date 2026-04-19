@@ -3,7 +3,7 @@ export type Lang = "en" | "hu";
 export const translations = {
   en: {
     nav: { home: "Home", about: "About", work: "My Work", services: "Services", contact: "Contact" },
-    help: { label: "Help", feedback: "Give Feedback", changelog: "What's New" },
+    help: { label: "Help", feedback: "Give Feedback", changelog: "What's New", chat: "Support Chat" },
     footer: {
       rights: "All rights reserved.",
       tagline: "Built with intent. Lit with purpose.",
@@ -154,7 +154,7 @@ export const translations = {
   },
   hu: {
     nav: { home: "Főoldal", about: "Rólam", work: "Munkáim", services: "Szolgáltatások", contact: "Kapcsolat" },
-    help: { label: "Súgó", feedback: "Visszajelzés küldése", changelog: "Újdonságok" },
+    help: { label: "Súgó", feedback: "Visszajelzés küldése", changelog: "Újdonságok", chat: "Ügyfélchat" },
     footer: {
       rights: "Minden jog fenntartva.",
       tagline: "Szándékkal építve. Céllal lángra lobbantva.",

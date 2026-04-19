@@ -1,4 +1,4 @@
-import { HelpCircle, MessageSquarePlus } from "lucide-react";
+import { HelpCircle, MessageCircle, MessageSquarePlus } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -42,6 +42,13 @@ export function HelpMenu({ className }: { className?: string }) {
         >
           <MessageSquarePlus className="h-4 w-4 text-ember" />
           <span>{t.help.feedback}</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onSelect={() => callFeaturebase("manually_open_messenger")}
+          className="cursor-pointer gap-2"
+        >
+          <MessageCircle className="h-4 w-4 text-ember" />
+          <span>{t.help.chat}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

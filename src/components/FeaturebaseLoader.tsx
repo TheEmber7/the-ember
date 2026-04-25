@@ -3,11 +3,13 @@ import { useI18n } from "@/i18n/LanguageProvider";
 
 declare global {
   interface Window {
-    Featurebase?: ((command: string, options?: Record<string, unknown>) => void) & {
-      q?: unknown[];
-    };
+    Featurebase?: FeaturebaseCommand;
   }
 }
+
+type FeaturebaseCommand = ((command: string, options?: Record<string, unknown>) => void) & {
+  q?: unknown[];
+};
 
 const FEATUREBASE_SCRIPT_ID = "featurebase-sdk";
 const FEATUREBASE_APP_ID = "69e384b070da38b54b33a688";
@@ -19,7 +21,7 @@ function ensureFeaturebaseSdk() {
     const queue: unknown[] = [];
     const featurebase = ((...args: unknown[]) => {
       queue.push(args);
-    }) as Window["Featurebase"];
+    }) as FeaturebaseCommand;
     featurebase.q = queue;
     window.Featurebase = featurebase;
   }

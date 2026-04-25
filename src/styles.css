@@ -6,7 +6,7 @@
 
 /*
  * The Ember — Design System
- * Deep dark blue + golden hue + white.
+ * Black + golden hue + white.
  * All colors in oklch.
  */
 
@@ -87,28 +87,28 @@
 :root {
   --radius: 0.75rem;
 
-  /* Deep dark blue base */
-  --background: oklch(0.18 0.05 260);
+  /* Black base */
+  --background: oklch(0.05 0 0);
   --foreground: oklch(0.98 0.005 250);
 
-  --card: oklch(0.22 0.05 260);
+  --card: oklch(0.09 0 0);
   --card-foreground: oklch(0.98 0.005 250);
 
-  --popover: oklch(0.22 0.05 260);
+  --popover: oklch(0.09 0 0);
   --popover-foreground: oklch(0.98 0.005 250);
 
   /* Golden ember as primary */
   --primary: oklch(0.78 0.14 80);
-  --primary-foreground: oklch(0.18 0.05 260);
+  --primary-foreground: oklch(0.05 0 0);
 
-  --secondary: oklch(0.28 0.05 260);
+  --secondary: oklch(0.14 0 0);
   --secondary-foreground: oklch(0.98 0.005 250);
 
-  --muted: oklch(0.26 0.04 260);
-  --muted-foreground: oklch(0.72 0.02 255);
+  --muted: oklch(0.16 0 0);
+  --muted-foreground: oklch(0.76 0 0);
 
   --accent: oklch(0.78 0.14 80);
-  --accent-foreground: oklch(0.18 0.05 260);
+  --accent-foreground: oklch(0.05 0 0);
 
   --destructive: oklch(0.62 0.22 25);
   --destructive-foreground: oklch(0.98 0.005 250);
@@ -120,24 +120,24 @@
   /* Brand custom tokens */
   --ember: oklch(0.78 0.14 80);
   --ember-glow: oklch(0.86 0.16 85);
-  --deep: oklch(0.14 0.05 260);
+  --deep: oklch(0.03 0 0);
 }
 
 .dark {
-  --background: oklch(0.18 0.05 260);
+  --background: oklch(0.05 0 0);
   --foreground: oklch(0.98 0.005 250);
-  --card: oklch(0.22 0.05 260);
+  --card: oklch(0.09 0 0);
   --card-foreground: oklch(0.98 0.005 250);
-  --popover: oklch(0.22 0.05 260);
+  --popover: oklch(0.09 0 0);
   --popover-foreground: oklch(0.98 0.005 250);
   --primary: oklch(0.78 0.14 80);
-  --primary-foreground: oklch(0.18 0.05 260);
-  --secondary: oklch(0.28 0.05 260);
+  --primary-foreground: oklch(0.05 0 0);
+  --secondary: oklch(0.14 0 0);
   --secondary-foreground: oklch(0.98 0.005 250);
-  --muted: oklch(0.26 0.04 260);
-  --muted-foreground: oklch(0.72 0.02 255);
+  --muted: oklch(0.16 0 0);
+  --muted-foreground: oklch(0.76 0 0);
   --accent: oklch(0.78 0.14 80);
-  --accent-foreground: oklch(0.18 0.05 260);
+  --accent-foreground: oklch(0.05 0 0);
   --destructive: oklch(0.62 0.22 25);
   --destructive-foreground: oklch(0.98 0.005 250);
   --border: oklch(1 0 0 / 10%);
@@ -145,7 +145,7 @@
   --ring: oklch(0.78 0.14 80);
   --ember: oklch(0.78 0.14 80);
   --ember-glow: oklch(0.86 0.16 85);
-  --deep: oklch(0.14 0.05 260);
+  --deep: oklch(0.03 0 0);
 }
 
 @layer base {

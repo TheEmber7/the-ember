@@ -32,7 +32,7 @@ function HomePage() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden">
-        <EmberBackdrop />
+        <EmberBackdrop className="opacity-50" />
         <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-5xl flex-col items-center justify-center px-6 py-24 text-center">
           <Reveal delay={0}>
             <p className="mb-6 text-xs uppercase tracking-[0.4em] text-muted-foreground">

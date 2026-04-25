@@ -120,8 +120,8 @@ export const translations = {
       intro: "Tell me what you're building or working through. I read every message.",
       fields: { name: "Your name", email: "Email", topic: "Topic", message: "Message" },
       placeholders: {
-        name: "Horváth Zsombor",
-        email: "you@domain.com",
+        name: "John Doe",
+        email: "john.doe@example.com",
         message:
           "Tell me what you're building, where you're stuck, or what you want to sharpen…",
       },
@@ -271,8 +271,8 @@ export const translations = {
       intro: "Mondd el, mit építesz vagy min dolgozol. Minden üzenetet elolvasok.",
       fields: { name: "Neved", email: "E-mail", topic: "Téma", message: "Üzenet" },
       placeholders: {
-        name: "Horváth Zsombor",
-        email: "te@domain.hu",
+        name: "John Doe",
+        email: "john.doe@example.com",
         message:
           "Mondd el, mit építesz, hol akadtál el, vagy mit szeretnél élesíteni…",
       },

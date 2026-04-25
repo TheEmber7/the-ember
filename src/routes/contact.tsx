@@ -211,26 +211,6 @@ function ContactPage() {
         </Reveal>
       </section>
 
-      {/* FEATUREBASE EMBED SLOT */}
-      <section className="mx-auto max-w-3xl px-6 py-20">
-        <Reveal>
-          <div className="rounded-2xl border border-dashed border-border/60 bg-card/30 p-8 text-center backdrop-blur-sm">
-            <p className="text-xs uppercase tracking-[0.3em] text-ember">
-              {t.contact.featurebase.eyebrow}
-            </p>
-            <h3 className="mt-3 font-display text-2xl text-foreground">
-              {t.contact.featurebase.title}
-            </h3>
-            <p className="mt-2 text-sm text-muted-foreground">{t.contact.featurebase.body}</p>
-            <div
-              id="featurebase-embed"
-              className="mt-6 min-h-[120px] rounded-lg border border-border/40 bg-background/30 p-6 text-xs text-muted-foreground"
-            >
-              {t.contact.featurebase.placeholder}
-            </div>
-          </div>
-        </Reveal>
-      </section>
     </div>
   );
 }

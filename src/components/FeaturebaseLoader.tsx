@@ -41,7 +41,7 @@ export function FeaturebaseLoader() {
   useEffect(() => {
     ensureFeaturebaseSdk();
 
-    window.Featurebase?.("initialize_messenger", {
+    window.Featurebase?.("boot", {
       appId: FEATUREBASE_APP_ID,
       theme: "dark",
       language: lang,

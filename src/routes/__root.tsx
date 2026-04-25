@@ -95,7 +95,19 @@ function RootComponent() {
   return (
     <LanguageProvider>
       <FeaturebaseLoader />
-      <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <div className="fixed inset-0 -z-20 bg-background" aria-hidden>
+        <video
+          className="h-full w-full object-cover opacity-[0.18] mix-blend-screen"
+          src="/topographic-motion.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        />
+        <div className="absolute inset-0 bg-background/72" />
+      </div>
+      <div className="relative flex min-h-screen flex-col bg-transparent text-foreground">
         <SiteHeader />
         <main className="flex-1">
           <Outlet />

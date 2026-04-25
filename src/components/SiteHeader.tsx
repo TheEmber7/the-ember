@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { EmberMark } from "./EmberMark";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { HelpMenu } from "./HelpMenu";
 import { useI18n } from "@/i18n/LanguageProvider";
 import { cn } from "@/lib/utils";
 
@@ -54,7 +53,6 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <HelpMenu />
           <LanguageSwitcher className="hidden sm:inline-flex" />
           <button
             type="button"

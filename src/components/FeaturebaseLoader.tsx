@@ -13,6 +13,7 @@ type FeaturebaseCommand = ((command: string, options?: Record<string, unknown>) 
 
 const FEATUREBASE_SCRIPT_ID = "featurebase-sdk";
 const FEATUREBASE_APP_ID = "69e384b070da38b54b33a688";
+const FEATUREBASE_ORGANIZATION = "theember";
 
 function ensureFeaturebaseSdk() {
   if (typeof window === "undefined" || typeof document === "undefined") return;
@@ -46,6 +47,24 @@ export function FeaturebaseLoader() {
       theme: "dark",
       language: lang,
       hideDefaultLauncher: false,
+    });
+
+    window.Featurebase?.("init_changelog_widget", {
+      organization: FEATUREBASE_ORGANIZATION,
+      changelogCard: {
+        enabled: true,
+      },
+      dropdown: {
+        enabled: true,
+        placement: "right",
+      },
+      popup: {
+        enabled: true,
+        usersName: "John",
+        autoOpenForNewUpdates: true,
+      },
+      theme: "dark",
+      locale: lang,
     });
   }, [lang]);
 

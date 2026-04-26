@@ -53,6 +53,13 @@ export function FeaturebaseLoader() {
       organization: FEATUREBASE_ORGANIZATION,
       changelogCard: {
         enabled: true,
+        layout: {
+          position: "bottom-left",
+          marginBottom: 20,
+          marginSide: 20,
+          maxWidth: 400,
+        },
+        openInNewTab: false,
       },
       dropdown: {
         enabled: true,

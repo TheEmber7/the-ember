@@ -64,15 +64,21 @@ function WorkPage() {
                   {item.description}
                 </p>
 
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="mt-6 inline-flex items-center gap-2 self-start text-sm font-medium text-ember transition-colors hover:text-foreground"
-                >
-                  {t.work.visit}
-                  <ExternalLink className="h-3.5 w-3.5" />
-                </a>
+                {item.url ? (
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="mt-6 inline-flex items-center gap-2 self-start text-sm font-medium text-ember transition-colors hover:text-foreground"
+                  >
+                    {item.cta ?? t.work.visit}
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                ) : (
+                  <span className="mt-6 inline-flex items-center gap-2 self-start text-sm font-medium text-muted-foreground">
+                    {item.cta ?? t.work.visit}
+                  </span>
+                )}
               </article>
             </Reveal>
           ))}

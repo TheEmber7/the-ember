@@ -62,7 +62,7 @@ export function FeaturebaseLoader() {
         openInNewTab: false,
       },
       dropdown: {
-        enabled: true,
+        enabled: false,
         placement: "right",
       },
       popup: {

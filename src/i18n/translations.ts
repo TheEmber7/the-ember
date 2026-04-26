@@ -62,6 +62,14 @@ export const translations = {
       visit: "Visit",
       items: [
         {
+          title: "Ai Building & Automations",
+          subtitle: "Artificial Intelligence",
+          description:
+            "Need a Website? An App? A Chatbot? CRM Support? Appointment setter? Leads scraper? I can build it for you in Three days to a Week... Speed is rule #1 of business. You cannot afford to be slow because you'll miss a lot of clients. Ai is the future, your business needs to implement it before it takes over you. And that's why it's future-proof. Ai doesn't sleep, Ai doesn't call in sick, Ai does not need days off. Get in on the future.",
+          url: "",
+          cta: "COMING SOON",
+        },
+        {
           title: "Head Manager & Admin of M.V.K",
           subtitle: "Community Management",
           description:
@@ -212,6 +220,14 @@ export const translations = {
       intro: "Egyre bővülő gyűjtemény azokról a termekről, amiket vezetek, a rendszerekről, amiket építek, és a közösségekről, amelyeket segítek irányítani. Bizonyíték ígéretek helyett.",
       visit: "Megnyitás",
       items: [
+        {
+          title: "Ai Building & Automations",
+          subtitle: "Artificial Intelligence",
+          description:
+            "Need a Website? An App? A Chatbot? CRM Support? Appointment setter? Leads scraper? I can build it for you in Three days to a Week... Speed is rule #1 of business. You cannot afford to be slow because you'll miss a lot of clients. Ai is the future, your business needs to implement it before it takes over you. And that's why it's future-proof. Ai doesn't sleep, Ai doesn't call in sick, Ai does not need days off. Get in on the future.",
+          url: "",
+          cta: "COMING SOON",
+        },
         {
           title: "M.V.K Vezető Menedzser és Admin",
           subtitle: "Közösségmenedzsment",

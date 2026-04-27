@@ -44,10 +44,10 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Horváth Zsombor — The Ember. AI Automation, community management, and mental frameworks for sales and self-improvement.",
+          "The Ember. AI Automation, community management, and mental frameworks for sales and self-improvement.",
       },
       { name: "author", content: "Horváth Zsombor" },
-      { property: "og:title", content: "Horváth Zsombor — The Ember" },
+      { property: "og:title", content: "The Ember" },
       {
         property: "og:description",
         content:
@@ -55,12 +55,10 @@ export const Route = createRootRoute({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Horváth Zsombor — The Ember" },
+      { name: "twitter:title", content: "The Ember" },
       { name: "description", content: "The Ember's Forge" },
       { property: "og:description", content: "The Ember's Forge" },
       { name: "twitter:description", content: "The Ember's Forge" },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3342bf28-a2fd-47a3-90b6-9a75d4577680/id-preview-62ce421f--06347ed2-72fe-4153-8618-7dff254792bf.lovable.app-1776519918874.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3342bf28-a2fd-47a3-90b6-9a75d4577680/id-preview-62ce421f--06347ed2-72fe-4153-8618-7dff254792bf.lovable.app-1776519918874.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

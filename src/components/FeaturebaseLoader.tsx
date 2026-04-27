@@ -73,6 +73,19 @@ export function FeaturebaseLoader() {
       theme: "dark",
       locale: lang,
     });
+
+    window.Featurebase?.(
+      "initialize_survey_widget",
+      {
+        organization: FEATUREBASE_ORGANIZATION,
+        placement: "bottom-right",
+        theme: "dark",
+        locale: lang,
+      },
+      (err: unknown) => {
+        if (err) return;
+      },
+    );
   }, [lang]);
 
   return null;

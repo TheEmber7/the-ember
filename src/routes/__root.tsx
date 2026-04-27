@@ -40,7 +40,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Horváth Zsombor — The Ember" },
+      { title: "The Ember" },
       {
         name: "description",
         content:
@@ -51,14 +51,14 @@ export const Route = createRootRoute({
       {
         property: "og:description",
         content:
-          "AI Automation, community management, and mental frameworks for sales and self-improvement.",
+          "AI Automation, community management and self-improvement.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "Horváth Zsombor — The Ember" },
-      { name: "description", content: "The Ember's Forge is showcasing expertise in AI automation, community management, sales, and self-improvement." },
-      { property: "og:description", content: "The Ember's Forge is showcasing expertise in AI automation, community management, sales, and self-improvement." },
-      { name: "twitter:description", content: "The Ember's Forge is showcasing expertise in AI automation, community management, sales, and self-improvement." },
+      { name: "description", content: "The Ember's Forge" },
+      { property: "og:description", content: "The Ember's Forge" },
+      { name: "twitter:description", content: "The Ember's Forge" },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3342bf28-a2fd-47a3-90b6-9a75d4577680/id-preview-62ce421f--06347ed2-72fe-4153-8618-7dff254792bf.lovable.app-1776519918874.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3342bf28-a2fd-47a3-90b6-9a75d4577680/id-preview-62ce421f--06347ed2-72fe-4153-8618-7dff254792bf.lovable.app-1776519918874.png" },
     ],

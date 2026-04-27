@@ -7,11 +7,11 @@ import { useI18n } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/work")({
   head: () => ({
     meta: [
-      { title: "My Work — Horváth Zsombor (The Ember)" },
+      { title: "My Work — Public Work" },
       {
         name: "description",
         content:
-          "Public work by Horváth Zsombor — communities I help lead, systems I build, and projects shipped under The Ember.",
+          "Public work by Horváth Zsombor — communities I help lead, systems I build, and projects.",
       },
       { property: "og:title", content: "My Work — Horváth Zsombor (The Ember)" },
       {

@@ -13,7 +13,7 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Get in touch with Horváth Zsombor (The Ember) for AI automation, community management, or coaching on sales and mental frameworks.",
+          "Get in touch with The Ember for AI automation, community management, or more.",
       },
       { property: "og:title", content: "Contact — Horváth Zsombor (The Ember)" },
       {

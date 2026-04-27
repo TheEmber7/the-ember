@@ -9,13 +9,13 @@ import { useI18n } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Horváth Zsombor (The Ember)" },
+      { title: "Contact — The Ember" },
       {
         name: "description",
         content:
           "Get in touch with The Ember for AI automation, community management, or more.",
       },
-      { property: "og:title", content: "Contact — Horváth Zsombor (The Ember)" },
+      { property: "og:title", content: "Contact — The Ember" },
       {
         property: "og:description",
         content: "Tell me what you're building. I'll tell you straight if I can help.",

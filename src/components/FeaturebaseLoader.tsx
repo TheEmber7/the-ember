@@ -7,7 +7,11 @@ declare global {
   }
 }
 
-type FeaturebaseCommand = ((command: string, options?: Record<string, unknown>) => void) & {
+type FeaturebaseCommand = ((
+  command: string,
+  options?: Record<string, unknown>,
+  callback?: (err?: unknown) => void,
+) => void) & {
   q?: unknown[];
 };
 

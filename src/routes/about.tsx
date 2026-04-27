@@ -7,7 +7,7 @@ import { useI18n } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Horváth Zsombor (The Ember)" },
+      { title: "About — The Ember" },
       {
         name: "description",
         content:

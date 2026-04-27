@@ -7,17 +7,17 @@ import { useI18n } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Horváth Zsombor — The Ember" },
+      { title: "The Ember" },
       {
         name: "description",
         content:
-          "Personal site of Horváth Zsombor (The Ember) — AI Automation, community management, and mental frameworks for sales and self-improvement.",
+          "Personal site of Horváth Zsombor (The Ember) — AI Automation, community management and self-improvement.",
       },
-      { property: "og:title", content: "Horváth Zsombor — The Ember" },
+      { property: "og:title", content: "The Ember" },
       {
         property: "og:description",
         content:
-          "AI Automation, community management, and mental frameworks for sales and self-improvement.",
+          "AI Automation, community management, and self-improvement.",
       },
     ],
   }),

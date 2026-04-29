@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequestHeader } from "@tanstack/react-start/server";
 import { EmailAPIError, sendLovableEmail } from "@lovable.dev/email-js";
 import { z } from "zod";
 
@@ -12,6 +13,11 @@ const contactSchema = z.object({
 export const submitContactMessage = createServerFn({ method: "POST" })
   .inputValidator((input) => contactSchema.parse(input))
   .handler(async ({ data }) => {
+    const contentLength = Number(getRequestHeader("content-length") ?? "0");
+    if (contentLength > 8_000) {
+      throw new Error("Message is too large.");
+    }
+
     const apiKey = process.env.LOVABLE_API_KEY;
     const recipientEmail = process.env.CONTACT_RECIPIENT_EMAIL;
     const senderDomain = process.env.CONTACT_SENDER_DOMAIN;

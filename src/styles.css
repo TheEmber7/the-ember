@@ -64,7 +64,8 @@
   }
 
   @keyframes ember-pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 0.55;
       transform: scale(1);
     }
@@ -75,7 +76,8 @@
   }
 
   @keyframes float-slow {
-    0%, 100% {
+    0%,
+    100% {
       transform: translate(0, 0);
     }
     50% {
@@ -166,7 +168,10 @@
     text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
   }

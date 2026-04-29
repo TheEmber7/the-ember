@@ -36,8 +36,7 @@ function WorkPage() {
         </Reveal>
         <Reveal delay={120}>
           <h1 className="mt-4 font-display text-5xl text-foreground sm:text-6xl">
-            {t.work.title}{" "}
-            <span className="text-ember ember-glow-text">{t.work.titleAccent}</span>
+            {t.work.title} <span className="text-ember ember-glow-text">{t.work.titleAccent}</span>
           </h1>
         </Reveal>
         <Reveal delay={240}>

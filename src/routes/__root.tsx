@@ -43,15 +43,13 @@ export const Route = createRootRoute({
       { title: "The Ember" },
       {
         name: "description",
-        content:
-          "The Ember. AI Automation, community management.",
+        content: "The Ember. AI Automation, community management.",
       },
       { name: "author", content: "Horváth Zsombor" },
       { property: "og:title", content: "The Ember" },
       {
         property: "og:description",
-        content:
-          "AI Automation, community management and practical insights.",
+        content: "AI Automation, community management and practical insights.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

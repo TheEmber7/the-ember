@@ -16,8 +16,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "The Ember" },
       {
         property: "og:description",
-        content:
-          "AI Automation, community management, and practical insights.",
+        content: "AI Automation, community management, and practical insights.",
       },
     ],
   }),
@@ -49,8 +48,7 @@ function HomePage() {
 
           <Reveal delay={260}>
             <p className="mt-6 text-base text-muted-foreground sm:text-lg">
-              {t.home.intro}{" "}
-              <span className="text-foreground">Horváth Zsombor</span>
+              {t.home.intro} <span className="text-foreground">Horváth Zsombor</span>
               {t.home.introAfter}
             </p>
           </Reveal>

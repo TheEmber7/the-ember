@@ -176,8 +176,8 @@ export const translations = {
       title: "The",
       titleAccent: "Ember",
       intro: "Horváth Zsombor vagyok",
-      introAfter: " — AI-rendszereket építek, közösségeket vezetek, és elméket élesítek.",
-      highlights: ["AI Automatizáció", "Közösségmenedzsment", "Értékesítés és Mentális Keretrendszerek"],
+      introAfter: " — AI-rendszereket építek, közösségeket vezetek, és gyakorlati meglátásokat osztok meg.",
+      highlights: ["AI Automatizáció", "Közösségmenedzsment", "Vélemények és Meglátások"],
       ctaPrimary: "Amit kínálok",
       ctaSecondary: "Vedd fel a kapcsolatot",
       scroll: "Görgess",
@@ -206,9 +206,9 @@ export const translations = {
           body: "Értékesítés, kommunikáció és az unalmas alapok, amik valóban előre mozdítanak.",
         },
         {
-          role: "Önfejlesztési Mentor",
+          role: "Gondolkodásmód és Meglátások",
           name: "Lucky Luc",
-          body: "Mentális keretrendszerek a kitartáshoz, fókuszhoz, és ahhoz, hogy azzá válj, akit a munka megkövetel.",
+          body: "Mentális keretrendszerek, perspektíva és gyakorlati megfigyelések fókuszhoz és kitartáshoz.",
         },
       ],
     },
@@ -240,8 +240,8 @@ export const translations = {
       eyebrow: "Szolgáltatások",
       title: "Amit",
       titleAccent: "kínálok",
-      intro: "Három sáv. Egy filozófia: építs keményen, vezess tisztán, élesíts naponta.",
-      tags: { build: "Építés", lead: "Vezetés", sharpen: "Élesítés" },
+      intro: "Három sáv. Egy filozófia: építs keményen, vezess tisztán, gondolkodj élesen.",
+      tags: { build: "Építés", lead: "Vezetés", sharpen: "Meglátások" },
       items: [
         {
           title: "AI Automatizáció",
@@ -264,13 +264,13 @@ export const translations = {
           ],
         },
         {
-          title: "Értékesítés és Mentális Keretrendszerek",
+          title: "Vélemények és Meglátások",
           body:
-            "Coaching az üzlet belső játékához. Szociális készségek, értékesítési alapok és mentális keretrendszerek, amik nyomás alatt is megtartanak. Prof. Arno Wingen és Lucky Luc munkájára építve.",
+            "Egyenes vélemények és gyakorlati meglátások üzletről, kommunikációról, értékesítési alapokról és mentális keretrendszerekről. Nem coaching — csak tiszta perspektíva, amikor jól jön egy éles külső szem.",
           bullets: [
-            "Értékesítési alapok és kifogáskezelés",
-            "Szociális készség és beszélgetési mesterség",
-            "Mentális keretrendszerek a kitartáshoz",
+            "Üzleti és értékesítési perspektíva",
+            "Kommunikációs és szociális meglátások",
+            "Mentális keretrendszerek és gyakorlati megfigyelések",
           ],
         },
       ],
@@ -289,13 +289,12 @@ export const translations = {
         name: "John Doe",
         email: "john.doe@example.com",
         message:
-          "Mondd el, mit építesz, hol akadtál el, vagy mit szeretnél élesíteni…",
+          "Mondd el, mit építesz, hol akadtál el, vagy milyen meglátást szeretnél…",
       },
       topics: [
         "AI Automatizáció",
         "Közösségmenedzsment",
-        "Értékesítés és Mentális Keretrendszerek",
-        "Valami más",
+        "Egyéb / Meglátások",
       ],
       send: "Üzenet küldése",
       sending: "Küldés…",

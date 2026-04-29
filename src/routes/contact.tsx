@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useMemo, useState } from "react";
 import { z } from "zod";
 import { Mail, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { EmberBackdrop } from "@/components/EmberBackdrop";
 import { useI18n } from "@/i18n/LanguageProvider";
+import { submitContactMessage } from "@/server/contact.functions";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -34,6 +36,7 @@ type ContactInput = {
 
 function ContactPage() {
   const { t } = useI18n();
+  const submitContactMessageFn = useServerFn(submitContactMessage);
 
   const contactSchema = useMemo(
     () =>
@@ -80,17 +83,7 @@ function ContactPage() {
     setStatus("submitting");
     setErrorMsg(null);
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(parsed.data),
-      });
-
-      if (!response.ok) {
-        const result = (await response.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(result?.error ?? "Message could not be sent right now.");
-      }
-
+      await submitContactMessageFn({ data: parsed.data });
       setStatus("sent");
       setForm({ name: "", email: "", topic: t.contact.topics[0], message: "" });
     } catch (err) {

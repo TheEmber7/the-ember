@@ -34,9 +34,7 @@ export function SiteHeader() {
                 to={item.to}
                 className={cn(
                   "relative text-sm font-medium tracking-wide transition-colors",
-                  active
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
+                  active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {item.label}

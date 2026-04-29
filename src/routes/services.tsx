@@ -71,10 +71,7 @@ function ServicesPage() {
 
                   <ul className="mt-6 space-y-2">
                     {s.bullets.map((b) => (
-                      <li
-                        key={b}
-                        className="flex items-start gap-2 text-xs text-muted-foreground"
-                      >
+                      <li key={b} className="flex items-start gap-2 text-xs text-muted-foreground">
                         <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-ember" />
                         {b}
                       </li>

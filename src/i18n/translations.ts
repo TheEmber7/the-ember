@@ -2,8 +2,19 @@ export type Lang = "en" | "hu";
 
 export const translations = {
   en: {
-    nav: { home: "Home", about: "About", work: "My Work", services: "Services", contact: "Contact" },
-    help: { label: "Help", feedback: "Give Feedback", changelog: "What's New", chat: "Support Chat" },
+    nav: {
+      home: "Home",
+      about: "About",
+      work: "My Work",
+      services: "Services",
+      contact: "Contact",
+    },
+    help: {
+      label: "Help",
+      feedback: "Give Feedback",
+      changelog: "What's New",
+      chat: "Support Chat",
+    },
     footer: {
       rights: "All rights reserved.",
       tagline: "Built with intent. Lit with purpose.",
@@ -24,7 +35,7 @@ export const translations = {
       ctaSecondary: "Get in Touch",
       scroll: "Scroll",
       quote: '"A small ember, given the right air, can light an entire forest.',
-      quoteAccent: "That\u2019s the work.\"",
+      quoteAccent: 'That\u2019s the work."',
       moreAbout: "More about me",
     },
     about: {
@@ -36,8 +47,14 @@ export const translations = {
       pillarsTitle: "The Pillars",
       pillars: [
         { title: "Discipline", body: "Daily reps over moods. Standards over excuses." },
-        { title: "Social Skill", body: "Listening loudly, speaking clearly, building trust on purpose." },
-        { title: "Business Craft", body: "Selling honestly, solving real problems, compounding results." },
+        {
+          title: "Social Skill",
+          body: "Listening loudly, speaking clearly, building trust on purpose.",
+        },
+        {
+          title: "Business Craft",
+          body: "Selling honestly, solving real problems, compounding results.",
+        },
       ],
       mentorsEyebrow: "Mentors",
       mentorsTitle: "Standing on giants",
@@ -58,7 +75,8 @@ export const translations = {
       eyebrow: "My Work",
       title: "Public",
       titleAccent: "work",
-      intro: "A growing collection of the rooms I run, the systems I build, and the communities I help lead. Proof over promises.",
+      intro:
+        "A growing collection of the rooms I run, the systems I build, and the communities I help lead. Proof over promises.",
       visit: "Visit",
       items: [
         {
@@ -73,7 +91,7 @@ export const translations = {
           title: "Head Manager & Admin of M.V.K",
           subtitle: "Community Management",
           description:
-            "M.V.K (Magyar Vállalkozók Közössége) is a country-exclusive networking community for Hungary. Built for like-minded individuals — young or adult — who want to run their own business and step into the world of entrepreneurship. Think of it as the beginner-friendly answer to the famous Hungarian \"FIVOSZ\" entrepreneurship network, while still serving experienced founders.",
+            'M.V.K (Magyar Vállalkozók Közössége) is a country-exclusive networking community for Hungary. Built for like-minded individuals — young or adult — who want to run their own business and step into the world of entrepreneurship. Think of it as the beginner-friendly answer to the famous Hungarian "FIVOSZ" entrepreneurship network, while still serving experienced founders.',
           url: "https://magyar-valalkozok.vercel.app/",
         },
       ],
@@ -87,8 +105,7 @@ export const translations = {
       items: [
         {
           title: "AI Automation",
-          body:
-            "Websites, chatbots, and end-to-end AI workflows. Prompt engineering that actually ships — not demos. I design systems that quietly do the boring work so you can focus on the leverage.",
+          body: "Websites, chatbots, and end-to-end AI workflows. Prompt engineering that actually ships — not demos. I design systems that quietly do the boring work so you can focus on the leverage.",
           bullets: [
             "AI-powered websites & landing pages",
             "Custom chatbots & assistants",
@@ -97,8 +114,7 @@ export const translations = {
         },
         {
           title: "Community Management",
-          body:
-            "General Manager for online communities. Operations, moderation, events, and the creative work that keeps a community alive — not just open. I run the room so the founder can build.",
+          body: "General Manager for online communities. Operations, moderation, events, and the creative work that keeps a community alive — not just open. I run the room so the founder can build.",
           bullets: [
             "Day-to-day GM operations",
             "Creative content & engagement",
@@ -107,8 +123,7 @@ export const translations = {
         },
         {
           title: "Opinions & Insights",
-          body:
-            "Straight opinions and practical insights on business, communication, sales fundamentals, and mental frameworks. Clear perspective when you want another sharp set of eyes on the situation.",
+          body: "Straight opinions and practical insights on business, communication, sales fundamentals, and mental frameworks. Clear perspective when you want another sharp set of eyes on the situation.",
           bullets: [
             "Business and sales perspective",
             "Social skill and communication insights",
@@ -130,18 +145,14 @@ export const translations = {
       placeholders: {
         name: "John Doe",
         email: "john.doe@example.com",
-        message:
-          "Tell me what you're building, where you're stuck, or what insight you want…",
+        message: "Tell me what you're building, where you're stuck, or what insight you want…",
       },
-      topics: [
-        "AI Automation",
-        "Community Management",
-        "Other/Insights",
-      ],
+      topics: ["AI Automation", "Community Management", "Other/Insights"],
       send: "Send message",
       sending: "Sending…",
       sent: "Message sent",
-      sentNote: "Thanks — I'll be in touch shortly. (Email delivery wires up in the next build step.)",
+      sentNote:
+        "Thanks — I'll be in touch shortly. (Email delivery wires up in the next build step.)",
       emailHint: "Prefer email? Mention it in the message and I'll reply directly.",
       featurebase: {
         eyebrow: "Featurebase",
@@ -160,8 +171,19 @@ export const translations = {
     },
   },
   hu: {
-    nav: { home: "Főoldal", about: "Rólam", work: "Munkáim", services: "Szolgáltatások", contact: "Kapcsolat" },
-    help: { label: "Súgó", feedback: "Visszajelzés küldése", changelog: "Újdonságok", chat: "Ügyfélchat" },
+    nav: {
+      home: "Főoldal",
+      about: "Rólam",
+      work: "Munkáim",
+      services: "Szolgáltatások",
+      contact: "Kapcsolat",
+    },
+    help: {
+      label: "Súgó",
+      feedback: "Visszajelzés küldése",
+      changelog: "Újdonságok",
+      chat: "Ügyfélchat",
+    },
     footer: {
       rights: "Minden jog fenntartva.",
       tagline: "Szándékkal építve. Céllal lángra lobbantva.",
@@ -176,7 +198,8 @@ export const translations = {
       title: "The",
       titleAccent: "Ember",
       intro: "Horváth Zsombor vagyok",
-      introAfter: " — AI-rendszereket építek, közösségeket vezetek, és gyakorlati meglátásokat osztok meg.",
+      introAfter:
+        " — AI-rendszereket építek, közösségeket vezetek, és gyakorlati meglátásokat osztok meg.",
       highlights: ["AI Automatizáció", "Közösségmenedzsment", "Vélemények és Meglátások"],
       ctaPrimary: "Amit kínálok",
       ctaSecondary: "Vedd fel a kapcsolatot",
@@ -193,9 +216,18 @@ export const translations = {
         "Horváth Zsombor vagyok. AI-rendszerek, közösségvezetés és a belső játék metszéspontján dolgozom — azon, ami eldönti, működik-e mindez a valóságban. A feladatom, hogy építőket, vezetőket és közösségeket nehezebben megállíthatóvá tegyek.",
       pillarsTitle: "A Pillérek",
       pillars: [
-        { title: "Fegyelem", body: "Napi ismétlések a hangulatok helyett. Mércék a kifogások helyett." },
-        { title: "Szociális Készség", body: "Hangosan figyelni, tisztán beszélni, tudatosan bizalmat építeni." },
-        { title: "Üzleti Mesterség", body: "Őszintén értékesíteni, valódi problémákat megoldani, eredményeket kamatoztatni." },
+        {
+          title: "Fegyelem",
+          body: "Napi ismétlések a hangulatok helyett. Mércék a kifogások helyett.",
+        },
+        {
+          title: "Szociális Készség",
+          body: "Hangosan figyelni, tisztán beszélni, tudatosan bizalmat építeni.",
+        },
+        {
+          title: "Üzleti Mesterség",
+          body: "Őszintén értékesíteni, valódi problémákat megoldani, eredményeket kamatoztatni.",
+        },
       ],
       mentorsEyebrow: "Mentorok",
       mentorsTitle: "Óriások vállán",
@@ -216,7 +248,8 @@ export const translations = {
       eyebrow: "Munkáim",
       title: "Nyilvános",
       titleAccent: "munkáim",
-      intro: "Egyre bővülő gyűjtemény azokról a termekről, amiket vezetek, a rendszerekről, amiket építek, és a közösségekről, amelyeket segítek irányítani. Bizonyíték ígéretek helyett.",
+      intro:
+        "Egyre bővülő gyűjtemény azokról a termekről, amiket vezetek, a rendszerekről, amiket építek, és a közösségekről, amelyeket segítek irányítani. Bizonyíték ígéretek helyett.",
       visit: "Megnyitás",
       items: [
         {
@@ -231,7 +264,7 @@ export const translations = {
           title: "M.V.K Vezető Menedzser és Admin",
           subtitle: "Közösségmenedzsment",
           description:
-            "Az M.V.K (Magyar Vállalkozók Közössége) egy Magyarországra kizárólagos networking közösség. Hasonlóan gondolkodó embereknek készült — fiataloknak és felnőtteknek egyaránt —, akik saját vállalkozást szeretnének vezetni, és belépnének a vállalkozói világba. Tekintsd a híres magyar „FIVOSZ\" vállalkozói hálózat kezdőbarát válaszának, miközben tapasztalt alapítóknak is értéket nyújt.",
+            'Az M.V.K (Magyar Vállalkozók Közössége) egy Magyarországra kizárólagos networking közösség. Hasonlóan gondolkodó embereknek készült — fiataloknak és felnőtteknek egyaránt —, akik saját vállalkozást szeretnének vezetni, és belépnének a vállalkozói világba. Tekintsd a híres magyar „FIVOSZ" vállalkozói hálózat kezdőbarát válaszának, miközben tapasztalt alapítóknak is értéket nyújt.',
           url: "https://magyar-valalkozok.vercel.app/",
         },
       ],
@@ -245,8 +278,7 @@ export const translations = {
       items: [
         {
           title: "AI Automatizáció",
-          body:
-            "Weboldalak, chatbotok és teljes körű AI munkafolyamatok. Prompt-mérnökség, ami valóban szállít — nem csak demók. Olyan rendszereket tervezek, amik csendben elvégzik az unalmas munkát, hogy te a tőkeáttételre fókuszálhass.",
+          body: "Weboldalak, chatbotok és teljes körű AI munkafolyamatok. Prompt-mérnökség, ami valóban szállít — nem csak demók. Olyan rendszereket tervezek, amik csendben elvégzik az unalmas munkát, hogy te a tőkeáttételre fókuszálhass.",
           bullets: [
             "AI-alapú weboldalak és landing oldalak",
             "Egyedi chatbotok és asszisztensek",
@@ -255,8 +287,7 @@ export const translations = {
         },
         {
           title: "Közösségmenedzsment",
-          body:
-            "Online közösségek vezérigazgatója. Üzemeltetés, moderáció, események és kreatív munka, ami életben tartja a közösséget — nem csak nyitva. Én vezetem a termet, hogy az alapító építhessen.",
+          body: "Online közösségek vezérigazgatója. Üzemeltetés, moderáció, események és kreatív munka, ami életben tartja a közösséget — nem csak nyitva. Én vezetem a termet, hogy az alapító építhessen.",
           bullets: [
             "Napi GM-üzemeltetés",
             "Kreatív tartalom és aktivitás",
@@ -265,8 +296,7 @@ export const translations = {
         },
         {
           title: "Vélemények és Meglátások",
-          body:
-            "Egyenes vélemények és gyakorlati meglátások üzletről, kommunikációról, értékesítési alapokról és mentális keretrendszerekről. Tiszta perspektíva, amikor jól jön egy éles külső szem.",
+          body: "Egyenes vélemények és gyakorlati meglátások üzletről, kommunikációról, értékesítési alapokról és mentális keretrendszerekről. Tiszta perspektíva, amikor jól jön egy éles külső szem.",
           bullets: [
             "Üzleti és értékesítési perspektíva",
             "Kommunikációs és szociális meglátások",
@@ -288,18 +318,14 @@ export const translations = {
       placeholders: {
         name: "John Doe",
         email: "john.doe@example.com",
-        message:
-          "Mondd el, mit építesz, hol akadtál el, vagy milyen meglátást szeretnél…",
+        message: "Mondd el, mit építesz, hol akadtál el, vagy milyen meglátást szeretnél…",
       },
-      topics: [
-        "AI Automatizáció",
-        "Közösségmenedzsment",
-        "Egyéb/Meglátások",
-      ],
+      topics: ["AI Automatizáció", "Közösségmenedzsment", "Egyéb/Meglátások"],
       send: "Üzenet küldése",
       sending: "Küldés…",
       sent: "Üzenet elküldve",
-      sentNote: "Köszönöm — hamarosan jelentkezem. (Az e-mail kézbesítés a következő lépésben kerül bekötésre.)",
+      sentNote:
+        "Köszönöm — hamarosan jelentkezem. (Az e-mail kézbesítés a következő lépésben kerül bekötésre.)",
       emailHint: "Inkább e-mail? Említsd meg az üzenetben, és közvetlenül válaszolok.",
       featurebase: {
         eyebrow: "Featurebase",

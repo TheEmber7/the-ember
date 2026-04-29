@@ -14,8 +14,7 @@ export const Route = createFileRoute("/contact")({
       { title: "Contact — The Ember" },
       {
         name: "description",
-        content:
-          "Get in touch with The Ember for AI automation, community management, or more.",
+        content: "Get in touch with The Ember for AI automation, community management, or more.",
       },
       { property: "og:title", content: "Contact — The Ember" },
       {
@@ -41,9 +40,21 @@ function ContactPage() {
   const contactSchema = useMemo(
     () =>
       z.object({
-        name: z.string().trim().min(1, t.contact.errors.nameRequired).max(100, t.contact.errors.tooLong),
-        email: z.string().trim().email(t.contact.errors.emailInvalid).max(255, t.contact.errors.tooLong),
-        topic: z.string().trim().min(1, t.contact.errors.topicRequired).max(80, t.contact.errors.tooLong),
+        name: z
+          .string()
+          .trim()
+          .min(1, t.contact.errors.nameRequired)
+          .max(100, t.contact.errors.tooLong),
+        email: z
+          .string()
+          .trim()
+          .email(t.contact.errors.emailInvalid)
+          .max(255, t.contact.errors.tooLong),
+        topic: z
+          .string()
+          .trim()
+          .min(1, t.contact.errors.topicRequired)
+          .max(80, t.contact.errors.tooLong),
         message: z
           .string()
           .trim()
@@ -213,7 +224,6 @@ function ContactPage() {
           </p>
         </Reveal>
       </section>
-
     </div>
   );
 }

@@ -18,8 +18,8 @@ export const translations = {
       title: "The",
       titleAccent: "Ember",
       intro: "I am",
-      introAfter: "— building AI systems, leading communities, and sharpening minds.",
-      highlights: ["AI Automation", "Community Management", "Sales & Mental Frameworks"],
+      introAfter: "— building AI systems, leading communities, and sharing practical insights.",
+      highlights: ["AI Automation", "Community Management", "Opinions & Insights"],
       ctaPrimary: "What I Offer",
       ctaSecondary: "Get in Touch",
       scroll: "Scroll",
@@ -48,9 +48,9 @@ export const translations = {
           body: "Sales, communication, and the boring fundamentals that actually move the needle.",
         },
         {
-          role: "Self-Improvement Mentor",
+          role: "Mindset & Insight Reference",
           name: "Lucky Luc",
-          body: "Mental frameworks for resilience, focus, and showing up as the man the work requires.",
+          body: "Mental frameworks, perspective, and practical observations for focus and resilience.",
         },
       ],
     },
@@ -82,8 +82,8 @@ export const translations = {
       eyebrow: "Services",
       title: "What I",
       titleAccent: "offer",
-      intro: "Three lanes. One philosophy: build hard, lead clean, sharpen daily.",
-      tags: { build: "Build", lead: "Lead", sharpen: "Sharpen" },
+      intro: "Three lanes. One philosophy: build hard, lead clean, think clearly.",
+      tags: { build: "Build", lead: "Lead", sharpen: "Insights" },
       items: [
         {
           title: "AI Automation",
@@ -106,13 +106,13 @@ export const translations = {
           ],
         },
         {
-          title: "Sales & Mental Frameworks",
+          title: "Opinions & Insights",
           body:
-            "Coaching for the inner game of business. Social skills, sales fundamentals, and the mental frameworks that hold under pressure. Built on the work of Prof. Arno Wingen and Lucky Luc.",
+            "Straight opinions and practical insights on business, communication, sales fundamentals, and mental frameworks. Not coaching — just clear perspective when you want another sharp set of eyes on the situation.",
           bullets: [
-            "Sales fundamentals & objection handling",
-            "Social skill & conversational craft",
-            "Mental frameworks for resilience",
+            "Business and sales perspective",
+            "Social skill and communication insights",
+            "Mental frameworks and practical observations",
           ],
         },
       ],
@@ -131,13 +131,12 @@ export const translations = {
         name: "John Doe",
         email: "john.doe@example.com",
         message:
-          "Tell me what you're building, where you're stuck, or what you want to sharpen…",
+          "Tell me what you're building, where you're stuck, or what insight you want…",
       },
       topics: [
         "AI Automation",
         "Community Management",
-        "Sales & Mental Frameworks",
-        "Something else",
+        "Other / Insights",
       ],
       send: "Send message",
       sending: "Sending…",

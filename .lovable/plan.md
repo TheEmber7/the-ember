@@ -1,44 +1,38 @@
+I can make the contact section actually send you an email when someone submits it.
 
-## Featurebase Integration Plan
+About integrations: yes, email sending needs backend email infrastructure. Since you did not request a third-party provider, I’ll use Lovable’s built-in email system. That avoids needing a separate Resend/SendGrid account or API key.
 
-### What we're adding
-Three Featurebase widgets + a Help dropdown button in the header (visible on desktop AND mobile top bar, placed right before the language switcher).
+Implementation plan:
 
-### 1. SDK Loader (`src/components/FeaturebaseLoader.tsx`)
-A single client-only component mounted once in `__root.tsx`. It:
-- Injects the Featurebase SDK `<script>` once (id `featurebase-sdk`).
-- Boots **Live Support Messenger** with `appId: "69e384b070da38b54b33a688"`, `theme: "dark"`, `language` synced from `useI18n()` (`en` / `hu`), and `hideDefaultLauncher: true` so the floating bubble doesn't clash with the minimalist design.
-- Initializes **Changelog widget** with `organization: "zsombortheember"`, `theme: "dark"`, dropdown + popup enabled, `autoOpenForNewUpdates: true`, locale synced to current language. ChangelogCard disabled (we trigger it from the dropdown instead).
-- Initializes **Feedback widget** with `organization: "zsombortheember"`, `theme: "dark"`, `placement` omitted (no floating button — triggered from dropdown).
-- Re-runs language sync when `lang` changes via `Featurebase("update", { ... })` / `Featurebase("identify", ...)` patterns; if not supported we re-init.
+1. Enable the email backend prerequisites
+   - Enable Lovable Cloud if it is not already enabled.
+   - Check whether a sender email domain is configured.
+   - If no sender domain exists yet, you’ll need to set one up before emails can send reliably from your site.
 
-### 2. Help Dropdown (`src/components/HelpMenu.tsx`)
-- Trigger: circled question-mark button (`HelpCircle` from lucide-react) styled to match the existing language pill (small rounded border, hover golden glow).
-- Uses existing `@/components/ui/dropdown-menu` (already in project) for accessible keyboard/focus handling and consistent styling.
-- Two items, both translated via `t.help.*`:
-  - **Give Feedback** → triggers `Featurebase("manually_open_feedback_widget")`.
-  - **What's New** → triggers `Featurebase("manually_open_changelog_popup")`.
-- Falls back gracefully if SDK not yet loaded (queues call, since the SDK shim already buffers via `Featurebase.q`).
+2. Add app email infrastructure
+   - Set up the app email sending routes and queue system.
+   - Add the required email packages if they are missing.
+   - Add the unsubscribe page required by the email system, styled to match The Ember.
 
-### 3. Header changes (`src/components/SiteHeader.tsx`)
-- Insert `<HelpMenu />` immediately before `<LanguageSwitcher />` in the right-side cluster.
-- Make it visible on mobile too (no `hidden sm:inline-flex`), per request.
-- Mobile menu panel: also include it next to the language switcher at the bottom for parity.
+3. Create the contact notification email
+   - Add a branded React Email template for new contact submissions.
+   - Include the visitor’s name, email, selected topic, and message.
+   - Keep the recipient address as a placeholder/configurable value for now, since you said we’ll add the destination email later.
 
-### 4. Translations (`src/i18n/translations.ts`)
-Add a `help` namespace:
-- EN: `{ label: "Help", feedback: "Give Feedback", changelog: "What's New" }`
-- HU: `{ label: "Súgó", feedback: "Visszajelzés küldése", changelog: "Újdonságok" }`
+4. Wire the contact form to the backend
+   - Replace the current fake delay in `src/routes/contact.tsx` with a real submit request.
+   - Add a server route that validates the contact form data securely and sends the email.
+   - Keep the current form validation, loading state, success message, and error handling.
+   - If the recipient email has not been configured yet, the form will show a clear “email recipient is not configured” message instead of pretending it sent.
 
-### 5. Root mount (`src/routes/__root.tsx`)
-Add `<FeaturebaseLoader />` inside the providers tree (after `LanguageProvider` so it can read current language).
+5. Safety and reliability
+   - Validate all inputs server-side, not only in the browser.
+   - Add basic anti-abuse protections appropriate for a public contact form, such as payload limits and safe error responses.
+   - Avoid exposing private email configuration in the browser.
 
-### Technical notes
-- All Featurebase calls are wrapped in `typeof window !== "undefined"` guards so SSR doesn't break.
-- Theme hardcoded to `"dark"` to match the deep-blue palette.
-- No new dependencies required — Featurebase SDK is loaded via injected `<script>` tag, dropdown uses existing Radix-based `dropdown-menu` UI primitive.
-- No secrets needed — appId and org slug are public client-side identifiers.
+Technical details:
 
-### Files touched
-- **Create**: `src/components/FeaturebaseLoader.tsx`, `src/components/HelpMenu.tsx`
-- **Edit**: `src/components/SiteHeader.tsx`, `src/i18n/translations.ts`, `src/routes/__root.tsx`
+- The contact form is currently only simulating a successful submission with `setTimeout`; no email is being sent.
+- The implementation will use a TanStack Start server route under `src/routes/api/...` for the public form submission.
+- The sender infrastructure will use Lovable’s built-in app email system, not a third-party provider.
+- The destination email will be read from a server-side secret later, for example `CONTACT_RECIPIENT_EMAIL`, so it is not exposed in client code.

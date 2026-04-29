@@ -108,7 +108,7 @@ export const translations = {
         {
           title: "Opinions & Insights",
           body:
-            "Straight opinions and practical insights on business, communication, sales fundamentals, and mental frameworks. Not coaching — just clear perspective when you want another sharp set of eyes on the situation.",
+            "Straight opinions and practical insights on business, communication, sales fundamentals, and mental frameworks. Clear perspective when you want another sharp set of eyes on the situation.",
           bullets: [
             "Business and sales perspective",
             "Social skill and communication insights",
@@ -136,7 +136,7 @@ export const translations = {
       topics: [
         "AI Automation",
         "Community Management",
-        "Other / Insights",
+        "Other/Insights",
       ],
       send: "Send message",
       sending: "Sending…",
@@ -266,7 +266,7 @@ export const translations = {
         {
           title: "Vélemények és Meglátások",
           body:
-            "Egyenes vélemények és gyakorlati meglátások üzletről, kommunikációról, értékesítési alapokról és mentális keretrendszerekről. Nem coaching — csak tiszta perspektíva, amikor jól jön egy éles külső szem.",
+            "Egyenes vélemények és gyakorlati meglátások üzletről, kommunikációról, értékesítési alapokról és mentális keretrendszerekről. Tiszta perspektíva, amikor jól jön egy éles külső szem.",
           bullets: [
             "Üzleti és értékesítési perspektíva",
             "Kommunikációs és szociális meglátások",
@@ -294,7 +294,7 @@ export const translations = {
       topics: [
         "AI Automatizáció",
         "Közösségmenedzsment",
-        "Egyéb / Meglátások",
+        "Egyéb/Meglátások",
       ],
       send: "Üzenet küldése",
       sending: "Küldés…",

@@ -44,7 +44,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "The Ember. AI Automation, community management, and mental frameworks for sales and self-improvement.",
+          "The Ember. AI Automation, community management.",
       },
       { name: "author", content: "Horváth Zsombor" },
       { property: "og:title", content: "The Ember" },

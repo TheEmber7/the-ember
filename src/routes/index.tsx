@@ -7,13 +7,13 @@ import { useI18n } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "The Ember" },
+      { title: "Ember Agency" },
       {
         name: "description",
         content:
           "Personal site of Horváth Zsombor (The Ember) — AI Automation, community management, and practical insights.",
       },
-      { property: "og:title", content: "The Ember" },
+      { property: "og:title", content: "Ember Agency" },
       {
         property: "og:description",
         content: "AI Automation, community management, and practical insights.",
@@ -33,11 +33,13 @@ function HomePage() {
       <section className="relative overflow-hidden">
         <EmberBackdrop className="opacity-50" />
         <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-5xl flex-col items-center justify-center px-6 py-24 text-center">
-          <Reveal delay={0}>
-            <p className="mb-6 text-xs uppercase tracking-[0.4em] text-muted-foreground">
-              {t.home.eyebrow}
-            </p>
-          </Reveal>
+          {t.home.eyebrow && (
+            <Reveal delay={0}>
+              <p className="mb-6 text-xs uppercase tracking-[0.4em] text-muted-foreground">
+                {t.home.eyebrow}
+              </p>
+            </Reveal>
+          )}
 
           <Reveal delay={120}>
             <h1 className="font-display text-6xl font-semibold leading-[0.95] text-foreground sm:text-7xl md:text-8xl">

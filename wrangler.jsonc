@@ -1,5 +1,10 @@
 {
+  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "the-ember",
-  "pages_build_output_dir": "dist",
+  "main": "@tanstack/react-start/server-entry",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "assets": { "not_found_handling": "single-page-application" },
   "triggers": { "crons": [] }
 }

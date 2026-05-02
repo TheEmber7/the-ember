@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useMemo, useState } from "react";
 import { z } from "zod";
-import { Mail, Send, Loader2, CheckCircle2 } from "lucide-react";
+import { Mail, Send, CheckCircle2 } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { EmberBackdrop } from "@/components/EmberBackdrop";
 import { useI18n } from "@/i18n/LanguageProvider";
-import { submitContactMessage } from "@/server/contact.functions";
+
+const RECIPIENT_EMAIL = "TheEmberBusiness@proton.me";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -35,7 +35,6 @@ type ContactInput = {
 
 function ContactPage() {
   const { t } = useI18n();
-  const submitContactMessageFn = useServerFn(submitContactMessage);
 
   const contactSchema = useMemo(
     () =>
@@ -71,15 +70,14 @@ function ContactPage() {
     message: "",
   });
   const [errors, setErrors] = useState<Partial<Record<keyof ContactInput, string>>>({});
-  const [status, setStatus] = useState<"idle" | "submitting" | "sent" | "error">("idle");
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [opened, setOpened] = useState(false);
 
   const update = <K extends keyof ContactInput>(k: K, v: ContactInput[K]) => {
     setForm((f) => ({ ...f, [k]: v }));
     setErrors((e) => ({ ...e, [k]: undefined }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = contactSchema.safeParse(form);
     if (!parsed.success) {
@@ -91,16 +89,14 @@ function ContactPage() {
       setErrors(fieldErrors);
       return;
     }
-    setStatus("submitting");
-    setErrorMsg(null);
-    try {
-      await submitContactMessageFn({ data: parsed.data });
-      setStatus("sent");
-      setForm({ name: "", email: "", topic: t.contact.topics[0], message: "" });
-    } catch (err) {
-      setStatus("error");
-      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
-    }
+
+    const { name, email, topic, message } = parsed.data;
+    const subject = `[${topic}] Contact from ${name}`;
+    const body = `Name: ${name}\nEmail: ${email}\nTopic: ${topic}\n\n${message}`;
+    const mailto = `mailto:${RECIPIENT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailto;
+    setOpened(true);
   };
 
   return (
@@ -182,15 +178,9 @@ function ContactPage() {
               <p className="text-xs text-muted-foreground">{form.message.length}/1500</p>
               <button
                 type="submit"
-                disabled={status === "submitting" || status === "sent"}
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground transition-all hover:brightness-110 disabled:opacity-60 ember-ring"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground transition-all hover:brightness-110 ember-ring"
               >
-                {status === "submitting" ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    {t.contact.sending}
-                  </>
-                ) : status === "sent" ? (
+                {opened ? (
                   <>
                     <CheckCircle2 className="h-4 w-4" />
                     {t.contact.sent}
@@ -204,14 +194,14 @@ function ContactPage() {
               </button>
             </div>
 
-            {status === "sent" && (
+            {opened && (
               <p className="rounded-md border border-ember/40 bg-ember/10 p-3 text-sm text-foreground">
-                {t.contact.sentNote}
-              </p>
-            )}
-            {status === "error" && errorMsg && (
-              <p className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive-foreground">
-                {errorMsg}
+                Your email app should have opened with the message ready to send. If nothing
+                happened, email me directly at{" "}
+                <a className="underline text-ember" href={`mailto:${RECIPIENT_EMAIL}`}>
+                  {RECIPIENT_EMAIL}
+                </a>
+                .
               </p>
             )}
           </form>
@@ -220,7 +210,9 @@ function ContactPage() {
         <Reveal delay={200}>
           <p className="mt-6 flex items-center justify-center gap-2 text-center text-xs text-muted-foreground">
             <Mail className="h-3.5 w-3.5 text-ember" />
-            {t.contact.emailHint}
+            <a className="hover:text-ember transition-colors" href={`mailto:${RECIPIENT_EMAIL}`}>
+              {RECIPIENT_EMAIL}
+            </a>
           </p>
         </Reveal>
       </section>

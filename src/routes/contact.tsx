@@ -7,7 +7,11 @@ import { Reveal } from "@/components/Reveal";
 import { EmberBackdrop } from "@/components/EmberBackdrop";
 import { useI18n } from "@/i18n/LanguageProvider";
 
-const RECIPIENT_EMAIL = "TheEmberBusiness@proton.me";
+const DEFAULT_RECIPIENT_EMAIL = "TheEmberBusiness@proton.me";
+const DEFAULT_FROM_EMAIL = "The Ember Contact <onboarding@resend.dev>";
+
+// Public mailto: link for the "email me directly" UI fallback.
+const RECIPIENT_EMAIL = DEFAULT_RECIPIENT_EMAIL;
 
 const contactPayloadSchema = z.object({
   name: z.string().trim().min(1).max(100),
@@ -34,6 +38,9 @@ const sendContactEmail = createServerFn({ method: "POST" })
       console.error("[contact] Missing RESEND_API_KEY environment variable");
       throw new Response("Email service is not configured.", { status: 500 });
     }
+
+    const fromAddress = process.env.RESEND_FROM_EMAIL?.trim() || DEFAULT_FROM_EMAIL;
+    const recipient = process.env.CONTACT_RECIPIENT_EMAIL?.trim() || DEFAULT_RECIPIENT_EMAIL;
 
     const { Resend } = await import("resend");
     const resend = new Resend(apiKey);
@@ -63,9 +70,9 @@ Topic: ${data.topic}
 ${data.message}
 `;
 
-    const { error } = await resend.emails.send({
-      from: "The Ember Contact <onboarding@resend.dev>",
-      to: RECIPIENT_EMAIL,
+    const { data: sendResult, error } = await resend.emails.send({
+      from: fromAddress,
+      to: recipient,
       replyTo: data.email,
       subject,
       html,
@@ -73,9 +80,20 @@ ${data.message}
     });
 
     if (error) {
-      console.error("[contact] Resend send error", error);
+      console.error("[contact] Resend send error", {
+        name: error.name,
+        message: error.message,
+        from: fromAddress,
+        to: recipient,
+      });
       throw new Response("Failed to send email.", { status: 502 });
     }
+
+    console.info("[contact] Resend send ok", {
+      id: sendResult?.id,
+      from: fromAddress,
+      to: recipient,
+    });
 
     return { ok: true as const };
   });

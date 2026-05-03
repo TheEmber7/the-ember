@@ -151,8 +151,7 @@ export const translations = {
       send: "Send message",
       sending: "Sending…",
       sent: "Message sent",
-      sentNote:
-        "Thanks — I'll be in touch shortly. (Email delivery wires up in the next build step.)",
+      sentNote: "Thanks — your message is on its way. I'll get back to you shortly.",
       emailHint: "Prefer email? Mention it in the message and I'll reply directly.",
       featurebase: {
         eyebrow: "Featurebase",
@@ -324,8 +323,7 @@ export const translations = {
       send: "Üzenet küldése",
       sending: "Küldés…",
       sent: "Üzenet elküldve",
-      sentNote:
-        "Köszönöm — hamarosan jelentkezem. (Az e-mail kézbesítés a következő lépésben kerül bekötésre.)",
+      sentNote: "Köszönöm — az üzeneted elindult. Hamarosan jelentkezem.",
       emailHint: "Inkább e-mail? Említsd meg az üzenetben, és közvetlenül válaszolok.",
       featurebase: {
         eyebrow: "Featurebase",

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
 import { useMemo, useState } from "react";
 import { z } from "zod";
 import { Mail, Send, CheckCircle2 } from "lucide-react";
@@ -7,6 +8,77 @@ import { EmberBackdrop } from "@/components/EmberBackdrop";
 import { useI18n } from "@/i18n/LanguageProvider";
 
 const RECIPIENT_EMAIL = "TheEmberBusiness@proton.me";
+
+const contactPayloadSchema = z.object({
+  name: z.string().trim().min(1).max(100),
+  email: z.string().trim().email().max(255),
+  topic: z.string().trim().min(1).max(80),
+  message: z.string().trim().min(10).max(1500),
+});
+
+type ContactPayload = z.infer<typeof contactPayloadSchema>;
+
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
+const sendContactEmail = createServerFn({ method: "POST" })
+  .inputValidator((data: ContactPayload) => contactPayloadSchema.parse(data))
+  .handler(async ({ data }) => {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.error("[contact] Missing RESEND_API_KEY environment variable");
+      throw new Response("Email service is not configured.", { status: 500 });
+    }
+
+    const { Resend } = await import("resend");
+    const resend = new Resend(apiKey);
+
+    const subject = `[${data.topic}] Contact from ${data.name}`;
+    const html = `
+      <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#0f172a;">
+        <h2 style="margin:0 0 12px;font-size:18px;">New contact form submission</h2>
+        <p style="margin:0 0 16px;color:#475569;">Sent from theember.dev /contact</p>
+        <table style="border-collapse:collapse;font-size:14px;">
+          <tbody>
+            <tr><td style="padding:4px 12px 4px 0;color:#64748b;">Name</td><td>${escapeHtml(data.name)}</td></tr>
+            <tr><td style="padding:4px 12px 4px 0;color:#64748b;">Email</td><td>${escapeHtml(data.email)}</td></tr>
+            <tr><td style="padding:4px 12px 4px 0;color:#64748b;">Topic</td><td>${escapeHtml(data.topic)}</td></tr>
+          </tbody>
+        </table>
+        <hr style="margin:16px 0;border:none;border-top:1px solid #e2e8f0;" />
+        <pre style="white-space:pre-wrap;font-family:inherit;font-size:14px;margin:0;">${escapeHtml(data.message)}</pre>
+      </div>
+    `;
+    const text = `New contact form submission
+
+Name: ${data.name}
+Email: ${data.email}
+Topic: ${data.topic}
+
+${data.message}
+`;
+
+    const { error } = await resend.emails.send({
+      from: "The Ember Contact <onboarding@resend.dev>",
+      to: RECIPIENT_EMAIL,
+      replyTo: data.email,
+      subject,
+      html,
+      text,
+    });
+
+    if (error) {
+      console.error("[contact] Resend send error", error);
+      throw new Response("Failed to send email.", { status: 502 });
+    }
+
+    return { ok: true as const };
+  });
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -32,6 +104,12 @@ type ContactInput = {
   topic: string;
   message: string;
 };
+
+type SubmitState =
+  | { status: "idle" }
+  | { status: "sending" }
+  | { status: "sent" }
+  | { status: "error"; message: string };
 
 function ContactPage() {
   const { t } = useI18n();
@@ -70,15 +148,17 @@ function ContactPage() {
     message: "",
   });
   const [errors, setErrors] = useState<Partial<Record<keyof ContactInput, string>>>({});
-  const [opened, setOpened] = useState(false);
+  const [submit, setSubmit] = useState<SubmitState>({ status: "idle" });
 
   const update = <K extends keyof ContactInput>(k: K, v: ContactInput[K]) => {
     setForm((f) => ({ ...f, [k]: v }));
     setErrors((e) => ({ ...e, [k]: undefined }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submit.status === "sending") return;
+
     const parsed = contactSchema.safeParse(form);
     if (!parsed.success) {
       const fieldErrors: Partial<Record<keyof ContactInput, string>> = {};
@@ -90,14 +170,22 @@ function ContactPage() {
       return;
     }
 
-    const { name, email, topic, message } = parsed.data;
-    const subject = `[${topic}] Contact from ${name}`;
-    const body = `Name: ${name}\nEmail: ${email}\nTopic: ${topic}\n\n${message}`;
-    const mailto = `mailto:${RECIPIENT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = mailto;
-    setOpened(true);
+    setSubmit({ status: "sending" });
+    try {
+      await sendContactEmail({ data: parsed.data });
+      setSubmit({ status: "sent" });
+      setForm((f) => ({ ...f, message: "" }));
+    } catch (err) {
+      console.error("[contact] submit error", err);
+      setSubmit({
+        status: "error",
+        message: err instanceof Error ? err.message : "Something went wrong.",
+      });
+    }
   };
+
+  const isSending = submit.status === "sending";
+  const isSent = submit.status === "sent";
 
   return (
     <div className="relative">
@@ -134,6 +222,7 @@ function ContactPage() {
                 className={inputCls}
                 placeholder={t.contact.placeholders.name}
                 autoComplete="name"
+                disabled={isSending}
               />
             </Field>
 
@@ -146,6 +235,7 @@ function ContactPage() {
                 className={inputCls}
                 placeholder={t.contact.placeholders.email}
                 autoComplete="email"
+                disabled={isSending}
               />
             </Field>
 
@@ -154,6 +244,7 @@ function ContactPage() {
                 value={form.topic}
                 onChange={(e) => update("topic", e.target.value)}
                 className={inputCls}
+                disabled={isSending}
               >
                 {t.contact.topics.map((topic) => (
                   <option key={topic} value={topic} className="bg-background">
@@ -171,6 +262,7 @@ function ContactPage() {
                 maxLength={1500}
                 className={`${inputCls} resize-none`}
                 placeholder={t.contact.placeholders.message}
+                disabled={isSending}
               />
             </Field>
 
@@ -178,12 +270,18 @@ function ContactPage() {
               <p className="text-xs text-muted-foreground">{form.message.length}/1500</p>
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground transition-all hover:brightness-110 ember-ring"
+                disabled={isSending}
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground transition-all hover:brightness-110 ember-ring disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {opened ? (
+                {isSent ? (
                   <>
                     <CheckCircle2 className="h-4 w-4" />
                     {t.contact.sent}
+                  </>
+                ) : isSending ? (
+                  <>
+                    <Send className="h-4 w-4 animate-pulse" />
+                    {t.contact.sending}
                   </>
                 ) : (
                   <>
@@ -194,10 +292,14 @@ function ContactPage() {
               </button>
             </div>
 
-            {opened && (
+            {isSent && (
               <p className="rounded-md border border-ember/40 bg-ember/10 p-3 text-sm text-foreground">
-                Your email app should have opened with the message ready to send. If nothing
-                happened, email me directly at{" "}
+                {t.contact.sentNote}
+              </p>
+            )}
+            {submit.status === "error" && (
+              <p className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-foreground">
+                {submit.message} You can also email me directly at{" "}
                 <a className="underline text-ember" href={`mailto:${RECIPIENT_EMAIL}`}>
                   {RECIPIENT_EMAIL}
                 </a>
@@ -221,7 +323,7 @@ function ContactPage() {
 }
 
 const inputCls =
-  "w-full rounded-md border border-border/70 bg-background/60 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all focus:border-ember focus:ring-2 focus:ring-ember/30";
+  "w-full rounded-md border border-border/70 bg-background/60 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all focus:border-ember focus:ring-2 focus:ring-ember/30 disabled:cursor-not-allowed disabled:opacity-60";
 
 function Field({
   label,

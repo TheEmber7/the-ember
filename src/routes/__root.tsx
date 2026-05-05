@@ -5,6 +5,7 @@ import { FeaturebaseLoader } from "@/components/FeaturebaseLoader";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { LanguageProvider, useI18n } from "@/i18n/LanguageProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -110,6 +111,7 @@ function RootComponent() {
         </main>
         <SiteFooter />
       </div>
+      <Toaster />
     </LanguageProvider>
   );
 }

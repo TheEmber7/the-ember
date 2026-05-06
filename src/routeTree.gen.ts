@@ -16,6 +16,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PortalAdminRouteImport } from './routes/portal.admin'
+import { Route as PortalJobIdRouteImport } from './routes/portal.$jobId'
 
 const WorkRoute = WorkRouteImport.update({
   id: '/work',
@@ -52,6 +53,11 @@ const PortalAdminRoute = PortalAdminRouteImport.update({
   path: '/portal/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalJobIdRoute = PortalJobIdRouteImport.update({
+  id: '/portal/$jobId',
+  path: '/portal/$jobId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
   '/work': typeof WorkRoute
+  '/portal/$jobId': typeof PortalJobIdRoute
   '/portal/admin': typeof PortalAdminRoute
   '/portal/': typeof PortalIndexRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
   '/work': typeof WorkRoute
+  '/portal/$jobId': typeof PortalJobIdRoute
   '/portal/admin': typeof PortalAdminRoute
   '/portal': typeof PortalIndexRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
   '/work': typeof WorkRoute
+  '/portal/$jobId': typeof PortalJobIdRoute
   '/portal/admin': typeof PortalAdminRoute
   '/portal/': typeof PortalIndexRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/services'
     | '/work'
+    | '/portal/$jobId'
     | '/portal/admin'
     | '/portal/'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/services'
     | '/work'
+    | '/portal/$jobId'
     | '/portal/admin'
     | '/portal'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/services'
     | '/work'
+    | '/portal/$jobId'
     | '/portal/admin'
     | '/portal/'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   ServicesRoute: typeof ServicesRoute
   WorkRoute: typeof WorkRoute
+  PortalJobIdRoute: typeof PortalJobIdRoute
   PortalAdminRoute: typeof PortalAdminRoute
   PortalIndexRoute: typeof PortalIndexRoute
 }
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalAdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal/$jobId': {
+      id: '/portal/$jobId'
+      path: '/portal/$jobId'
+      fullPath: '/portal/$jobId'
+      preLoaderRoute: typeof PortalJobIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   ServicesRoute: ServicesRoute,
   WorkRoute: WorkRoute,
+  PortalJobIdRoute: PortalJobIdRoute,
   PortalAdminRoute: PortalAdminRoute,
   PortalIndexRoute: PortalIndexRoute,
 }

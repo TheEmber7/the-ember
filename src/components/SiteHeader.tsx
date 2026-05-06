@@ -16,7 +16,6 @@ export function SiteHeader() {
     { to: "/work", label: t.nav.work },
     { to: "/services", label: t.nav.services },
     { to: "/contact", label: t.nav.contact },
-    { to: "/portal", label: "Portal" },
   ] as const;
 
   return (

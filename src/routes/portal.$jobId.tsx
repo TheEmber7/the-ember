@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, useCallback } from "react";
 import { Loader2, Target, ShieldAlert } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -8,15 +8,11 @@ import { TaskRow, type TaskRowData } from "@/components/portal/TaskRow";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/portal/$jobId")({
   head: () => ({
-    meta: [
-      { title: "Workspace — The Ember" },
-      { name: "robots", content: "noindex, nofollow" },
-    ],
+    meta: [{ title: "Workspace — The Ember" }, { name: "robots", content: "noindex, nofollow" }],
   }),
   component: JobPortal,
 });
@@ -32,11 +28,11 @@ function JobPortal() {
       </div>
     );
   }
-  if (!session) return <AuthForm jobId={jobId} />;
+  if (!session) return <AuthForm />;
   return <JobDashboard jobSlug={jobId} />;
 }
 
-function AuthForm({ jobId }: { jobId: string }) {
+function AuthForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -53,16 +49,13 @@ function AuthForm({ jobId }: { jobId: string }) {
   return (
     <div className="mx-auto flex min-h-[80vh] max-w-md flex-col justify-center px-6">
       <div className="mb-8 text-center">
-        <p className="text-xs uppercase tracking-[0.4em] text-muted-foreground">
-          Workspace
-        </p>
+        <p className="text-xs uppercase tracking-[0.4em] text-muted-foreground">Workspace</p>
         <h1 className="mt-3 font-display text-5xl text-foreground">
           The <span className="text-ember ember-glow-text">Forge</span>
         </h1>
         <p className="mt-3 text-sm text-muted-foreground">
           Sign in with the credentials provided to you.
         </p>
-        <p className="mt-1 text-xs text-muted-foreground/60">Job: {jobId}</p>
       </div>
 
       <form
@@ -71,7 +64,13 @@ function AuthForm({ jobId }: { jobId: string }) {
       >
         <div className="space-y-1.5">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Input
+            id="email"
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="password">Password</Label>
@@ -98,13 +97,11 @@ interface JobRow {
   id: string;
   slug: string;
   name: string;
-  description: string | null;
   client_id: string;
 }
 interface GoalWithTasks {
   id: string;
   name: string;
-  description: string | null;
   tasks: TaskRowData[];
 }
 
@@ -118,10 +115,12 @@ function JobDashboard({ jobSlug }: { jobSlug: string }) {
   const load = useCallback(async () => {
     if (!user) return;
     setLoading(true);
-    // RLS will filter — clients only see their own jobs by slug.
+    setDenied(false);
+
+    // RLS filters: clients only see jobs whose client_id == auth.uid().
     const { data: jobData, error: jobErr } = await supabase
       .from("jobs")
-      .select("id, slug, name, description, client_id")
+      .select("id, slug, name, client_id")
       .eq("slug", jobSlug)
       .maybeSingle();
 
@@ -139,27 +138,25 @@ function JobDashboard({ jobSlug }: { jobSlug: string }) {
 
     const { data: g, error: gErr } = await supabase
       .from("goals")
-      .select("id, name, description, tasks(id, title, status, progress, position)")
+      .select("id, name, tasks(id, title, done)")
       .eq("job_id", jobData.id)
       .order("created_at", { ascending: true });
+
     if (gErr) {
       toast.error(gErr.message);
+      setGoals([]);
     } else {
-      const mapped: GoalWithTasks[] = (g ?? []).map((goal) => ({
-        id: goal.id,
-        name: goal.name,
-        description: goal.description,
-        tasks: (goal.tasks ?? [])
-          .slice()
-          .sort((a, b) => a.position - b.position)
-          .map((t) => ({
+      setGoals(
+        (g ?? []).map((goal) => ({
+          id: goal.id,
+          name: goal.name,
+          tasks: (goal.tasks ?? []).map((t) => ({
             id: t.id,
             title: t.title,
-            status: t.status,
-            progress: t.progress,
+            done: t.done,
           })),
-      }));
-      setGoals(mapped);
+        })),
+      );
     }
     setLoading(false);
   }, [user, jobSlug]);
@@ -184,9 +181,6 @@ function JobDashboard({ jobSlug }: { jobSlug: string }) {
         <p className="mt-2 text-sm text-muted-foreground">
           This workspace doesn't exist or isn't assigned to your account.
         </p>
-        <Link to="/portal" className="mt-6 text-xs text-ember hover:underline">
-          Back to portal
-        </Link>
       </div>
     );
   }
@@ -194,7 +188,7 @@ function JobDashboard({ jobSlug }: { jobSlug: string }) {
   return (
     <PortalShell
       title={job.name}
-      subtitle={isAdmin ? "Viewing as admin." : job.description ?? "Your goals and tasks."}
+      subtitle={isAdmin ? "Viewing as admin." : "Your goals and tasks."}
     >
       {goals.length === 0 ? (
         <EmptyState />
@@ -202,7 +196,7 @@ function JobDashboard({ jobSlug }: { jobSlug: string }) {
         <div className="space-y-8">
           {goals.map((g) => {
             const total = g.tasks.length;
-            const avg = total ? Math.round(g.tasks.reduce((s, t) => s + t.progress, 0) / total) : 0;
+            const done = g.tasks.filter((t) => t.done).length;
             return (
               <section
                 key={g.id}
@@ -214,13 +208,9 @@ function JobDashboard({ jobSlug }: { jobSlug: string }) {
                   </div>
                   <div className="min-w-0 flex-1">
                     <h2 className="font-display text-2xl text-foreground">{g.name}</h2>
-                    {g.description && (
-                      <p className="mt-1 text-sm text-muted-foreground">{g.description}</p>
-                    )}
-                    <div className="mt-3 flex items-center gap-3">
-                      <Progress value={avg} className="h-1.5 flex-1" />
-                      <span className="text-xs tabular-nums text-muted-foreground">{avg}%</span>
-                    </div>
+                    <p className="mt-1 text-xs tabular-nums text-muted-foreground">
+                      {done} / {total} complete
+                    </p>
                   </div>
                 </div>
                 {g.tasks.length === 0 ? (
@@ -228,7 +218,7 @@ function JobDashboard({ jobSlug }: { jobSlug: string }) {
                 ) : (
                   <div className="space-y-2">
                     {g.tasks.map((task) => (
-                      <TaskRow key={task.id} task={task} onChanged={load} />
+                      <TaskRow key={task.id} task={task} onChanged={load} readOnly={isAdmin} />
                     ))}
                   </div>
                 )}

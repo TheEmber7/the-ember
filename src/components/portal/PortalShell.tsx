@@ -38,12 +38,12 @@ export function PortalShell({
               </Button>
             </Link>
           )}
-          <Link to="/portal">
-            <Button variant="ghost" size="sm" className="gap-2">
+          {user?.email && (
+            <span className="hidden items-center gap-2 text-xs text-muted-foreground sm:inline-flex">
               <User className="h-4 w-4" />
-              {user?.email}
-            </Button>
-          </Link>
+              {user.email}
+            </span>
+          )}
           <Button variant="ghost" size="sm" className="gap-2" onClick={signOut}>
             <LogOut className="h-4 w-4" /> Sign out
           </Button>

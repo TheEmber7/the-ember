@@ -1,38 +1,86 @@
-I can make the contact section actually send you an email when someone submits it.
+# Client Portal — Redo Plan (MVP-scoped)
 
-About integrations: yes, email sending needs backend email infrastructure. Since you did not request a third-party provider, I’ll use Lovable’s built-in email system. That avoids needing a separate Resend/SendGrid account or API key.
+The previous attempt tried to do too much in one shot (schema + auth + client UI + admin + per-job scoping) and a parallel agent is editing the same files, causing conflicts. The redo splits the work into the smallest shippable slices, each independently testable.
 
-Implementation plan:
+## MVP definition
 
-1. Enable the email backend prerequisites
-   - Enable Lovable Cloud if it is not already enabled.
-   - Check whether a sender email domain is configured.
-   - If no sender domain exists yet, you’ll need to set one up before emails can send reliably from your site.
+**In scope (must-have):**
+- Private `/portal/$jobId` URL — not linked anywhere on the public site.
+- Email + password login (no signup, no Google, no password reset).
+- Each client sees only their own job's goals + tasks (RLS-enforced).
+- Clients can toggle a task complete (single boolean — no progress slider, no statuses).
+- Admin can: create a client account, create a job for that client, add goals, add tasks. View-only of other clients' progress.
 
-2. Add app email infrastructure
-   - Set up the app email sending routes and queue system.
-   - Add the required email packages if they are missing.
-   - Add the unsubscribe page required by the email system, styled to match The Ember.
+**Out of scope (defer):**
+- Progress sliders / multi-state status (todo/in_progress/done) — boolean `done` only.
+- Reordering, drag-drop, positions.
+- Editing/deleting goals or tasks after creation (just create + delete row).
+- Admin promoting other admins, profile editing, display names.
+- Realtime updates, notifications, email invites.
+- Password reset, account self-service.
 
-3. Create the contact notification email
-   - Add a branded React Email template for new contact submissions.
-   - Include the visitor’s name, email, selected topic, and message.
-   - Keep the recipient address as a placeholder/configurable value for now, since you said we’ll add the destination email later.
+## Architecture (kept minimal)
 
-4. Wire the contact form to the backend
-   - Replace the current fake delay in `src/routes/contact.tsx` with a real submit request.
-   - Add a server route that validates the contact form data securely and sends the email.
-   - Keep the current form validation, loading state, success message, and error handling.
-   - If the recipient email has not been configured yet, the form will show a clear “email recipient is not configured” message instead of pretending it sent.
+```text
+DB:
+  app_role enum: 'admin' | 'client'
+  user_roles(user_id, role)              — roles separated from profiles
+  jobs(id, slug, client_id, name)        — slug = 16-char random hex, the URL token
+  goals(id, job_id, name)
+  tasks(id, goal_id, title, done bool)
 
-5. Safety and reliability
-   - Validate all inputs server-side, not only in the browser.
-   - Add basic anti-abuse protections appropriate for a public contact form, such as payload limits and safe error responses.
-   - Avoid exposing private email configuration in the browser.
+RLS helpers (SECURITY DEFINER):
+  has_role(uid, role)
+  job_belongs_to(job_id, uid)
+  goal_belongs_to(goal_id, uid)
 
-Technical details:
+Routes:
+  /portal/$jobId   — login form if signed out, dashboard if signed in
+  /portal/admin    — admin-only management UI
+  (no public /portal index, no header link)
 
-- The contact form is currently only simulating a successful submission with `setTimeout`; no email is being sent.
-- The implementation will use a TanStack Start server route under `src/routes/api/...` for the public form submission.
-- The sender infrastructure will use Lovable’s built-in app email system, not a third-party provider.
-- The destination email will be read from a server-side secret later, for example `CONTACT_RECIPIENT_EMAIL`, so it is not exposed in client code.
+Server fn:
+  createClientAccount(email, password) — uses service role to create user + assign 'client' role
+```
+
+## Step-by-step (each step = one build, independently verified)
+
+### Step 1 — Reset & migrate schema
+- Drop existing portal tables/policies/functions in one migration (clean slate, since prior migrations may have partial state).
+- Re-create the 5 tables above with RLS enabled and the minimal policies:
+  - `jobs`: client SELECT own; admin ALL
+  - `goals`: client SELECT via job; admin ALL
+  - `tasks`: client SELECT + UPDATE(done) via goal; admin ALL
+  - `user_roles`: user SELECT own; admin ALL
+- `handle_new_user` trigger inserts `client` role on signup.
+- Stop here, verify migration applies cleanly.
+
+### Step 2 — Auth hook + `/portal/$jobId` login + dashboard (read-only)
+- `usePortalAuth` hook (session + role).
+- `/portal/$jobId`: if no session → email/password login form; if session → fetch job by slug (RLS filters), render goals with task list. Access-denied state if slug returns nothing.
+- No task interaction yet — pure read.
+
+### Step 3 — Task completion toggle
+- Add a checkbox per task wired to `update tasks set done = ...`.
+- That's it. No slider, no status enum.
+
+### Step 4 — Admin view (`/portal/admin`)
+- Admin-only guard (redirect non-admins).
+- Create client account (server fn with service role).
+- Create job for a client (auto-gen slug, show shareable link).
+- Per-job: add goal, add task, delete goal/task.
+
+## Conflict-avoidance notes
+Since another agent is touching this area:
+- Each step is one user turn — short, scoped, easy to revert.
+- No edits to `SiteHeader`, `__root.tsx`, or `routeTree.gen.ts` beyond what's strictly required (and the latter is auto-generated — don't touch).
+- All portal code lives under `src/routes/portal.*`, `src/components/portal/`, `src/hooks/usePortalAuth.ts`, `src/server/portal-admin.functions.ts`. Nothing else.
+
+## Technical details
+- TanStack Start file-based routing; routes use `createFileRoute`.
+- Browser Supabase client for client reads/writes (RLS enforces isolation).
+- `supabaseAdmin` (service role) only inside `createServerFn` for account creation.
+- Slug generated with `gen_random_bytes(8)::text` hex in DB default.
+- `robots: noindex, nofollow` meta on all `/portal/*` routes.
+
+Approve and I'll execute Step 1 (schema reset migration) in the next turn.

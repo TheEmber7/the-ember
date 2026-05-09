@@ -57,7 +57,7 @@ export type Database = {
           description?: string | null
           id?: string
           name: string
-          slug: string
+          slug?: string
           updated_at?: string
         }
         Update: {
@@ -101,6 +101,7 @@ export type Database = {
       tasks: {
         Row: {
           created_at: string
+          done: boolean
           goal_id: string
           id: string
           position: number
@@ -111,6 +112,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          done?: boolean
           goal_id: string
           id?: string
           position?: number
@@ -121,6 +123,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          done?: boolean
           goal_id?: string
           id?: string
           position?: number
@@ -179,6 +182,13 @@ export type Database = {
       job_belongs_to: {
         Args: { _job_id: string; _user_id: string }
         Returns: boolean
+      }
+      list_client_emails: {
+        Args: never
+        Returns: {
+          email: string
+          user_id: string
+        }[]
       }
     }
     Enums: {

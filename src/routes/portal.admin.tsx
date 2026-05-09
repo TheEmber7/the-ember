@@ -348,8 +348,8 @@ function NewJobDialog({ clients, onCreated }: { clients: Client[]; onCreated: ()
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" className="h-7 gap-1 px-2 text-xs">
-          <Plus className="h-3.5 w-3.5" /> Job
+        <Button size="sm" variant="outline" className="w-full justify-start gap-2">
+          <Plus className="h-4 w-4" /> New job
         </Button>
       </DialogTrigger>
       <DialogContent>

@@ -514,8 +514,8 @@ function NewClientDialog({ onCreated }: { onCreated: () => void }) {
       }}
     >
       <DialogTrigger asChild>
-        <Button size="icon" variant="ghost" className="h-7 w-7" title="Create client account">
-          <UserPlus className="h-4 w-4" />
+        <Button size="sm" className="w-full justify-start gap-2">
+          <UserPlus className="h-4 w-4" /> New client account
         </Button>
       </DialogTrigger>
       <DialogContent>

@@ -59,11 +59,7 @@ function AdminPage() {
     );
   }
   if (!session) {
-    return (
-      <div className="mx-auto max-w-md px-6 py-24 text-center">
-        <p className="text-muted-foreground">You must sign in.</p>
-      </div>
-    );
+    return <AdminAuthForm />;
   }
   if (!isAdmin) {
     return (

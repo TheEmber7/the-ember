@@ -131,13 +131,16 @@ function AdminInner() {
       ) : (
         <div className="grid gap-6 md:grid-cols-[280px_1fr]">
           <aside className="space-y-2 rounded-2xl border border-border/60 bg-card/40 p-4">
-            <div className="mb-2 flex items-center justify-between">
-              <h2 className="text-xs uppercase tracking-widest text-muted-foreground">Jobs</h2>
-              <div className="flex items-center gap-1">
-                <NewClientDialog onCreated={load} />
-                <NewJobDialog clients={clients} onCreated={load} />
-              </div>
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-xs uppercase tracking-widest text-muted-foreground">Workspace</h2>
             </div>
+            <div className="mb-3 flex flex-col gap-2">
+              <NewClientDialog onCreated={load} />
+              <NewJobDialog clients={clients} onCreated={load} />
+            </div>
+            <h3 className="mb-1 px-1 text-xs uppercase tracking-widest text-muted-foreground">
+              Jobs
+            </h3>
             {jobs.length === 0 && (
               <p className="px-3 py-2 text-xs text-muted-foreground">No jobs yet.</p>
             )}
@@ -345,8 +348,8 @@ function NewJobDialog({ clients, onCreated }: { clients: Client[]; onCreated: ()
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" className="h-7 gap-1 px-2 text-xs">
-          <Plus className="h-3.5 w-3.5" /> Job
+        <Button size="sm" variant="outline" className="w-full justify-start gap-2">
+          <Plus className="h-4 w-4" /> New job
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -511,8 +514,8 @@ function NewClientDialog({ onCreated }: { onCreated: () => void }) {
       }}
     >
       <DialogTrigger asChild>
-        <Button size="icon" variant="ghost" className="h-7 w-7" title="Create client account">
-          <UserPlus className="h-4 w-4" />
+        <Button size="sm" className="w-full justify-start gap-2">
+          <UserPlus className="h-4 w-4" /> New client account
         </Button>
       </DialogTrigger>
       <DialogContent>

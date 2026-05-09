@@ -58,6 +58,8 @@ export const Route = createRootRoute({
       { name: "description", content: "The Ember's Forge" },
       { property: "og:description", content: "The Ember's Forge" },
       { name: "twitter:description", content: "The Ember's Forge" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ca3761cb-9d23-479f-921e-5373fca36362/id-preview-6fbd7cca--06347ed2-72fe-4153-8618-7dff254792bf.lovable.app-1778337101726.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ca3761cb-9d23-479f-921e-5373fca36362/id-preview-6fbd7cca--06347ed2-72fe-4153-8618-7dff254792bf.lovable.app-1778337101726.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

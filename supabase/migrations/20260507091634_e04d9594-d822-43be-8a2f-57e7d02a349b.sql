@@ -60,7 +60,7 @@ $$;
 
 CREATE TABLE public.jobs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  slug TEXT NOT NULL UNIQUE DEFAULT encode(gen_random_bytes(8), 'hex'),
+  slug TEXT NOT NULL UNIQUE DEFAULT encode(extensions.gen_random_bytes(8), 'hex'),
   client_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   name TEXT NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()

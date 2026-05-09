@@ -6,6 +6,31 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.5";
   };
+  graphql_public: {
+    Tables: {
+      [_ in never]: never;
+    };
+    Views: {
+      [_ in never]: never;
+    };
+    Functions: {
+      graphql: {
+        Args: {
+          extensions?: Json;
+          operationName?: string;
+          query?: string;
+          variables?: Json;
+        };
+        Returns: Json;
+      };
+    };
+    Enums: {
+      [_ in never]: never;
+    };
+    CompositeTypes: {
+      [_ in never]: never;
+    };
+  };
   public: {
     Tables: {
       goals: {
@@ -93,6 +118,21 @@ export type Database = {
           },
         ];
       };
+      "the-ember DB": {
+        Row: {
+          created_at: string;
+          id: number;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+        };
+        Relationships: [];
+      };
       user_roles: {
         Row: {
           created_at: string;
@@ -135,10 +175,10 @@ export type Database = {
         Returns: boolean;
       };
       list_client_emails: {
-        Args: Record<string, never>;
+        Args: never;
         Returns: {
-          user_id: string;
           email: string;
+          user_id: string;
         }[];
       };
     };
@@ -267,6 +307,9 @@ export type CompositeTypes<
     : never;
 
 export const Constants = {
+  graphql_public: {
+    Enums: {},
+  },
   public: {
     Enums: {
       app_role: ["admin", "client"],

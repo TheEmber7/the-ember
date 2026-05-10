@@ -226,6 +226,11 @@ export const translations = {
           name: "Prof. Arno Wingen",
           body: "Értékesítés, kommunikáció és az unalmas alapok, amik valóban előre mozdítanak.",
         },
+        {
+          role: "Gondolkodásmód és Meglátások",
+          name: "Lucky Luc",
+          body: "Éles nézőpont a gondolkodásmódról, a fegyelemről és a valós teljesítmény mögötti belső játékról.",
+        },
       ],
     },
     work: {

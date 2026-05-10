@@ -328,6 +328,14 @@ function NewJobDialog({ clients, onCreated }: { clients: Client[]; onCreated: ()
   const [name, setName] = useState("");
   const [busy, setBusy] = useState(false);
   const [showInlineClient, setShowInlineClient] = useState(false);
+  // Locally-tracked clients created inside this dialog, so the dropdown
+  // updates instantly without waiting for the parent refetch.
+  const [localClients, setLocalClients] = useState<Client[]>([]);
+
+  const allClients = [
+    ...clients,
+    ...localClients.filter((lc) => !clients.some((c) => c.user_id === lc.user_id)),
+  ];
 
   // Refetch clients whenever the dialog opens, in case one was just created.
   useEffect(() => {
@@ -337,20 +345,22 @@ function NewJobDialog({ clients, onCreated }: { clients: Client[]; onCreated: ()
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!clientId) return toast.error("Pick a client");
+    if (!name.trim()) return toast.error("Enter a job name");
     setBusy(true);
     const { error } = await supabase
       .from("jobs")
-      .insert([
-        { client_id: clientId, name, slug: crypto.randomUUID().replace(/-/g, "").slice(0, 16) },
-      ]);
+      .insert([{ client_id: clientId, name: name.trim() }]);
     setBusy(false);
     if (error) return toast.error(error.message);
     toast.success("Job created");
     setName("");
     setClientId("");
+    setLocalClients([]);
     setOpen(false);
     onCreated();
   }
+
+  const showEmptyState = allClients.length === 0 && !showInlineClient;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -365,7 +375,7 @@ function NewJobDialog({ clients, onCreated }: { clients: Client[]; onCreated: ()
           <DialogDescription>Generates a unique link to share with the client.</DialogDescription>
         </DialogHeader>
 
-        {clients.length === 0 && !showInlineClient ? (
+        {showEmptyState ? (
           <div className="space-y-4 rounded-lg border border-dashed border-border/60 bg-card/40 p-5 text-center">
             <div>
               <p className="font-medium text-foreground">No client accounts yet</p>
@@ -384,9 +394,10 @@ function NewJobDialog({ clients, onCreated }: { clients: Client[]; onCreated: ()
         ) : showInlineClient ? (
           <InlineCreateClient
             onCancel={() => setShowInlineClient(false)}
-            onCreated={(userId) => {
-              setShowInlineClient(false);
+            onCreated={(userId, email) => {
+              setLocalClients((prev) => [...prev, { user_id: userId, email }]);
               setClientId(userId);
+              setShowInlineClient(false);
               onCreated();
             }}
           />
@@ -410,7 +421,7 @@ function NewJobDialog({ clients, onCreated }: { clients: Client[]; onCreated: ()
                 className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
               >
                 <option value="">Choose…</option>
-                {clients.map((c) => (
+                {allClients.map((c) => (
                   <option key={c.user_id} value={c.user_id}>
                     {c.email}
                   </option>

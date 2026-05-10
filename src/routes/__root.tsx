@@ -50,7 +50,7 @@ export const Route = createRootRoute({
       { property: "og:title", content: "The Ember" },
       {
         property: "og:description",
-        content: "AI Automation, community management and practical insights.",
+        content: "AI Automation and community management.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

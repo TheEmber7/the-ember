@@ -27,7 +27,7 @@ const SERVICE_ICONS = [Bot, Users2, TrendingUp] as const;
 
 function ServicesPage() {
   const { t } = useI18n();
-  const tags = [t.services.tags.build, t.services.tags.lead, t.services.tags.sharpen];
+  const tags = [t.services.tags.build, t.services.tags.lead];
 
   return (
     <div className="relative">

@@ -183,9 +183,8 @@ export const translations = {
       title: "Ember",
       titleAccent: "Agency",
       intro: "Horváth Zsombor vagyok",
-      introAfter:
-        " — AI-rendszereket építek, közösségeket vezetek, és gyakorlati meglátásokat osztok meg.",
-      highlights: ["AI Automatizáció", "Közösségmenedzsment", "Vélemények és Meglátások"],
+      introAfter: " — AI-rendszereket építek és közösségeket vezetek.",
+      highlights: ["AI Automatizáció", "Közösségmenedzsment"],
       ctaPrimary: "Amit kínálok",
       ctaSecondary: "Vedd fel a kapcsolatot",
       scroll: "Görgess",
@@ -222,11 +221,6 @@ export const translations = {
           name: "Prof. Arno Wingen",
           body: "Értékesítés, kommunikáció és az unalmas alapok, amik valóban előre mozdítanak.",
         },
-        {
-          role: "Gondolkodásmód és Meglátások",
-          name: "Lucky Luc",
-          body: "Mentális keretrendszerek, perspektíva és gyakorlati megfigyelések fókuszhoz és kitartáshoz.",
-        },
       ],
     },
     work: {
@@ -258,8 +252,8 @@ export const translations = {
       eyebrow: "Szolgáltatások",
       title: "Amit",
       titleAccent: "kínálok",
-      intro: "Három sáv. Egy filozófia: építs keményen, vezess tisztán, gondolkodj élesen.",
-      tags: { build: "Építés", lead: "Vezetés", sharpen: "Meglátások" },
+      intro: "Két sáv. Egy filozófia: építs keményen, vezess tisztán.",
+      tags: { build: "Építés", lead: "Vezetés" },
       items: [
         {
           title: "AI Automatizáció",
@@ -279,15 +273,6 @@ export const translations = {
             "Onboarding és megtartási rendszerek",
           ],
         },
-        {
-          title: "Vélemények és Meglátások",
-          body: "Egyenes vélemények és gyakorlati meglátások üzletről, kommunikációról, értékesítési alapokról és mentális keretrendszerekről. Tiszta perspektíva, amikor jól jön egy éles külső szem.",
-          bullets: [
-            "Üzleti és értékesítési perspektíva",
-            "Kommunikációs és szociális meglátások",
-            "Mentális keretrendszerek és gyakorlati megfigyelések",
-          ],
-        },
       ],
       workWithMe: "Dolgozzunk együtt",
       ctaTitle: "Nem vagy biztos, melyik sáv illik hozzád?",
@@ -303,9 +288,9 @@ export const translations = {
       placeholders: {
         name: "John Doe",
         email: "john.doe@example.com",
-        message: "Mondd el, mit építesz, hol akadtál el, vagy milyen meglátást szeretnél…",
+        message: "Mondd el, mit építesz vagy hol akadtál el…",
       },
-      topics: ["AI Automatizáció", "Közösségmenedzsment", "Egyéb/Meglátások"],
+      topics: ["AI Automatizáció", "Közösségmenedzsment", "Egyéb"],
       send: "Üzenet küldése",
       sending: "Küldés…",
       sent: "Üzenet elküldve",

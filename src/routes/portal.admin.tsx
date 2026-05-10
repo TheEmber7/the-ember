@@ -449,7 +449,7 @@ function InlineCreateClient({
   onCreated,
 }: {
   onCancel: () => void;
-  onCreated: (userId: string) => void;
+  onCreated: (userId: string, email: string) => void;
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -468,8 +468,9 @@ function InlineCreateClient({
     setBusy(true);
     try {
       const pwd = password || genPassword();
+      const cleanEmail = email.trim().toLowerCase();
       const result = await createClientAccount({
-        data: { email: email.trim().toLowerCase(), password: pwd },
+        data: { email: cleanEmail, password: pwd },
       });
       toast.success("Client account created", {
         description: `Password: ${pwd}`,
@@ -477,10 +478,10 @@ function InlineCreateClient({
         action: {
           label: "Copy",
           onClick: () =>
-            navigator.clipboard.writeText(`Email: ${email}\nPassword: ${pwd}`),
+            navigator.clipboard.writeText(`Email: ${cleanEmail}\nPassword: ${pwd}`),
         },
       });
-      onCreated(result.userId);
+      onCreated(result.userId, cleanEmail);
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Failed to create client";
       toast.error(msg);

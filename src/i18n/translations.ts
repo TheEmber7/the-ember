@@ -29,8 +29,8 @@ export const translations = {
       title: "Ember",
       titleAccent: "Agency",
       intro: "I am",
-      introAfter: "— building AI systems, leading communities, and sharing practical insights.",
-      highlights: ["AI Automation", "Community Management", "Opinions & Insights"],
+      introAfter: "— building AI systems and leading communities.",
+      highlights: ["AI Automation", "Community Management"],
       ctaPrimary: "What I Offer",
       ctaSecondary: "Get in Touch",
       scroll: "Scroll",
@@ -64,11 +64,6 @@ export const translations = {
           name: "Prof. Arno Wingen",
           body: "Sales, communication, and the boring fundamentals that actually move the needle.",
         },
-        {
-          role: "Mindset & Insight Reference",
-          name: "Lucky Luc",
-          body: "Mental frameworks, perspective, and practical observations for focus and resilience.",
-        },
       ],
     },
     work: {
@@ -100,8 +95,8 @@ export const translations = {
       eyebrow: "Services",
       title: "What I",
       titleAccent: "offer",
-      intro: "Three lanes. One philosophy: build hard, lead clean, think clearly.",
-      tags: { build: "Build", lead: "Lead", sharpen: "Insights" },
+      intro: "Two lanes. One philosophy: build hard, lead clean.",
+      tags: { build: "Build", lead: "Lead" },
       items: [
         {
           title: "AI Automation",
@@ -121,15 +116,6 @@ export const translations = {
             "Onboarding & retention systems",
           ],
         },
-        {
-          title: "Opinions & Insights",
-          body: "Straight opinions and practical insights on business, communication, sales fundamentals, and mental frameworks. Clear perspective when you want another sharp set of eyes on the situation.",
-          bullets: [
-            "Business and sales perspective",
-            "Social skill and communication insights",
-            "Mental frameworks and practical observations",
-          ],
-        },
       ],
       workWithMe: "Work with me",
       ctaTitle: "Not sure which lane fits?",
@@ -145,9 +131,9 @@ export const translations = {
       placeholders: {
         name: "John Doe",
         email: "john.doe@example.com",
-        message: "Tell me what you're building, where you're stuck, or what insight you want…",
+        message: "Tell me what you're building or where you're stuck…",
       },
-      topics: ["AI Automation", "Community Management", "Other/Insights"],
+      topics: ["AI Automation", "Community Management", "Other"],
       send: "Send message",
       sending: "Sending…",
       sent: "Message sent",
@@ -197,9 +183,8 @@ export const translations = {
       title: "Ember",
       titleAccent: "Agency",
       intro: "Horváth Zsombor vagyok",
-      introAfter:
-        " — AI-rendszereket építek, közösségeket vezetek, és gyakorlati meglátásokat osztok meg.",
-      highlights: ["AI Automatizáció", "Közösségmenedzsment", "Vélemények és Meglátások"],
+      introAfter: " — AI-rendszereket építek és közösségeket vezetek.",
+      highlights: ["AI Automatizáció", "Közösségmenedzsment"],
       ctaPrimary: "Amit kínálok",
       ctaSecondary: "Vedd fel a kapcsolatot",
       scroll: "Görgess",
@@ -236,11 +221,6 @@ export const translations = {
           name: "Prof. Arno Wingen",
           body: "Értékesítés, kommunikáció és az unalmas alapok, amik valóban előre mozdítanak.",
         },
-        {
-          role: "Gondolkodásmód és Meglátások",
-          name: "Lucky Luc",
-          body: "Mentális keretrendszerek, perspektíva és gyakorlati megfigyelések fókuszhoz és kitartáshoz.",
-        },
       ],
     },
     work: {
@@ -272,8 +252,8 @@ export const translations = {
       eyebrow: "Szolgáltatások",
       title: "Amit",
       titleAccent: "kínálok",
-      intro: "Három sáv. Egy filozófia: építs keményen, vezess tisztán, gondolkodj élesen.",
-      tags: { build: "Építés", lead: "Vezetés", sharpen: "Meglátások" },
+      intro: "Két sáv. Egy filozófia: építs keményen, vezess tisztán.",
+      tags: { build: "Építés", lead: "Vezetés" },
       items: [
         {
           title: "AI Automatizáció",
@@ -293,15 +273,6 @@ export const translations = {
             "Onboarding és megtartási rendszerek",
           ],
         },
-        {
-          title: "Vélemények és Meglátások",
-          body: "Egyenes vélemények és gyakorlati meglátások üzletről, kommunikációról, értékesítési alapokról és mentális keretrendszerekről. Tiszta perspektíva, amikor jól jön egy éles külső szem.",
-          bullets: [
-            "Üzleti és értékesítési perspektíva",
-            "Kommunikációs és szociális meglátások",
-            "Mentális keretrendszerek és gyakorlati megfigyelések",
-          ],
-        },
       ],
       workWithMe: "Dolgozzunk együtt",
       ctaTitle: "Nem vagy biztos, melyik sáv illik hozzád?",
@@ -317,9 +288,9 @@ export const translations = {
       placeholders: {
         name: "John Doe",
         email: "john.doe@example.com",
-        message: "Mondd el, mit építesz, hol akadtál el, vagy milyen meglátást szeretnél…",
+        message: "Mondd el, mit építesz vagy hol akadtál el…",
       },
-      topics: ["AI Automatizáció", "Közösségmenedzsment", "Egyéb/Meglátások"],
+      topics: ["AI Automatizáció", "Közösségmenedzsment", "Egyéb"],
       send: "Üzenet küldése",
       sending: "Küldés…",
       sent: "Üzenet elküldve",

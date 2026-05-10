@@ -11,12 +11,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Personal site of Horváth Zsombor (The Ember) — AI Automation, community management, and practical insights.",
+          "Personal site of Horváth Zsombor (The Ember) — AI Automation and community management.",
       },
       { property: "og:title", content: "Ember Agency" },
       {
         property: "og:description",
-        content: "AI Automation, community management, and practical insights.",
+        content: "AI Automation and community management.",
       },
     ],
   }),

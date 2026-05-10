@@ -11,12 +11,12 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "About Horváth Zsombor — philosophy, mentors (Prof. Arno Wingen, Lucky Luc), and the pillars of the work: discipline, social skill, and business craft.",
+          "About Horváth Zsombor — philosophy, mentor (Prof. Arno Wingen), and the pillars of the work: discipline, social skill, and business craft.",
       },
       { property: "og:title", content: "About — Horváth Zsombor (The Ember)" },
       {
         property: "og:description",
-        content: "Philosophy, mentors, and the pillars behind The Ember.",
+        content: "Philosophy, mentor, and the pillars behind The Ember.",
       },
     ],
   }),

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, useCallback } from "react";
-import { Loader2, Plus, Trash2, UserPlus, Copy, ExternalLink } from "lucide-react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { Loader2, Plus, Trash2, UserPlus, ShieldPlus, Copy, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { usePortalAuth } from "@/hooks/usePortalAuth";
 import { PortalShell } from "@/components/portal/PortalShell";
@@ -17,7 +17,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { createClientAccount } from "@/server/portal-admin.functions";
+import { createAdminAccount, createClientAccount } from "@/server/portal-admin.functions";
 
 export const Route = createFileRoute("/portal/admin")({
   head: () => ({
@@ -79,9 +79,13 @@ function AdminInner() {
   const [tasksByGoal, setTasksByGoal] = useState<Record<string, Task[]>>({});
   const [selectedJob, setSelectedJob] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  // Only show the page-level spinner on the very first load. Subsequent refreshes
+  // (after creating/deleting clients, jobs, goals, tasks) update the data in place
+  // so dialogs and selections don't get unmounted mid-interaction.
+  const hasLoadedRef = useRef(false);
 
   const load = useCallback(async () => {
-    setLoading(true);
+    if (!hasLoadedRef.current) setLoading(true);
 
     const [{ data: clientRows, error: clientErr }, { data: js }, { data: g }] = await Promise.all([
       supabase.rpc("list_client_emails"),
@@ -113,6 +117,7 @@ function AdminInner() {
     } else {
       setTasksByGoal({});
     }
+    hasLoadedRef.current = true;
     setLoading(false);
   }, []);
 
@@ -136,6 +141,7 @@ function AdminInner() {
             </div>
             <div className="mb-3 flex flex-col gap-2">
               <NewClientDialog onCreated={load} />
+              <NewAdminDialog />
               <NewJobDialog clients={clients} onCreated={load} />
             </div>
             <h3 className="mb-1 px-1 text-xs uppercase tracking-widest text-muted-foreground">
@@ -336,11 +342,6 @@ function NewJobDialog({ clients, onCreated }: { clients: Client[]; onCreated: ()
     ...clients,
     ...localClients.filter((lc) => !clients.some((c) => c.user_id === lc.user_id)),
   ];
-
-  // Refetch clients whenever the dialog opens, in case one was just created.
-  useEffect(() => {
-    if (open) onCreated();
-  }, [open, onCreated]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -702,6 +703,130 @@ function NewClientDialog({ onCreated }: { onCreated: () => void }) {
               <Label htmlFor="cpwd">Password (leave blank to auto-generate)</Label>
               <Input
                 id="cpwd"
+                type="text"
+                minLength={8}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Auto-generate"
+              />
+            </div>
+            <DialogFooter>
+              <Button type="submit" disabled={busy}>
+                {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : "Create"}
+              </Button>
+            </DialogFooter>
+          </form>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function NewAdminDialog() {
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [created, setCreated] = useState<{ email: string; password: string } | null>(null);
+
+  function genPassword() {
+    const arr = new Uint8Array(12);
+    crypto.getRandomValues(arr);
+    return btoa(String.fromCharCode(...arr))
+      .replace(/[+/=]/g, "")
+      .slice(0, 14);
+  }
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    try {
+      const pwd = password || genPassword();
+      await createAdminAccount({
+        data: { email: email.trim().toLowerCase(), password: pwd },
+      });
+      setCreated({ email: email.trim().toLowerCase(), password: pwd });
+      toast.success("Admin account created");
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Failed to create admin";
+      toast.error(msg);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function reset() {
+    setEmail("");
+    setPassword("");
+    setCreated(null);
+  }
+
+  return (
+    <Dialog
+      open={open}
+      onOpenChange={(v) => {
+        setOpen(v);
+        if (!v) reset();
+      }}
+    >
+      <DialogTrigger asChild>
+        <Button size="sm" variant="outline" className="w-full justify-start gap-2">
+          <ShieldPlus className="h-4 w-4" /> New admin account
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{created ? "Admin created" : "Create admin account"}</DialogTitle>
+          <DialogDescription>
+            {created
+              ? "Share these credentials with the new admin securely. They won't be shown again."
+              : "Admins can manage all clients, jobs, goals, and tasks."}
+          </DialogDescription>
+        </DialogHeader>
+
+        {created ? (
+          <div className="space-y-3">
+            <div className="rounded-md border border-border/40 bg-background/40 px-3 py-2 text-sm">
+              <div className="text-xs text-muted-foreground">Email</div>
+              <div className="font-mono">{created.email}</div>
+            </div>
+            <div className="rounded-md border border-border/40 bg-background/40 px-3 py-2 text-sm">
+              <div className="text-xs text-muted-foreground">Password</div>
+              <div className="font-mono">{created.password}</div>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full gap-2"
+              onClick={() => {
+                navigator.clipboard.writeText(
+                  `Email: ${created.email}\nPassword: ${created.password}`,
+                );
+                toast.success("Copied");
+              }}
+            >
+              <Copy className="h-4 w-4" /> Copy credentials
+            </Button>
+            <DialogFooter>
+              <Button onClick={() => setOpen(false)}>Done</Button>
+            </DialogFooter>
+          </div>
+        ) : (
+          <form onSubmit={submit} className="space-y-4">
+            <div className="space-y-1.5">
+              <Label htmlFor="aemail-new">Email</Label>
+              <Input
+                id="aemail-new"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="apwd-new">Password (leave blank to auto-generate)</Label>
+              <Input
+                id="apwd-new"
                 type="text"
                 minLength={8}
                 value={password}

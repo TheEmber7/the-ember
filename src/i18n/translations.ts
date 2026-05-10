@@ -64,6 +64,11 @@ export const translations = {
           name: "Prof. Arno Wingen",
           body: "Sales, communication, and the boring fundamentals that actually move the needle.",
         },
+        {
+          role: "Mindset & Insight Reference",
+          name: "Lucky Luc",
+          body: "Sharp perspective on mindset, discipline, and the inner game behind real-world performance.",
+        },
       ],
     },
     work: {
@@ -220,6 +225,11 @@ export const translations = {
           role: "Üzleti Mentor",
           name: "Prof. Arno Wingen",
           body: "Értékesítés, kommunikáció és az unalmas alapok, amik valóban előre mozdítanak.",
+        },
+        {
+          role: "Gondolkodásmód és Meglátások",
+          name: "Lucky Luc",
+          body: "Éles nézőpont a gondolkodásmódról, a fegyelemről és a valós teljesítmény mögötti belső játékról.",
         },
       ],
     },

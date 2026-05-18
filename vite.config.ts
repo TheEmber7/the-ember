@@ -11,5 +11,5 @@ const { nitro } = await import("nitro/vite");
 
 export default defineConfig({
   cloudflare: false,
-  plugins: [nitro()],
+  plugins: [nitro({ preset: "vercel" })],
 });
